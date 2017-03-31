@@ -1,6 +1,6 @@
 {
   "name": "language-speedata-publisher",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Atom Package providing an editor for the speedata Publisher language",
   "keywords": [
     "speedata Publisher",
@@ -16,6 +16,6 @@
     "atom": "*"
   },
   "package-deps": [
-      "linter-autocomplete-jing"
+    "linter-autocomplete-jing"
   ]
 }
