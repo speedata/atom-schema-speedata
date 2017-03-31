@@ -1,0 +1,18 @@
+
+# the name of the grammar's scope - validation with linter-autocomplete-jing requires a name starting with text.xml.
+'scopeName': 'text.xml.speedata'
+
+# the name of the grammar (displayed in Atom's grammar selector in the bottom toolbar)
+'name': 'speedata'
+
+# an array of file extensions associated with this grammar
+'fileTypes': [
+  'xml'
+]
+
+# include the patterns from text.xml
+'patterns': [
+  {
+    'include': 'text.xml'
+  }
+]

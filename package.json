@@ -1,0 +1,21 @@
+{
+  "name": "language-speedata-publisher",
+  "version": "0.0.0",
+  "description": "Atom Package providing an editor for the speedata Publisher language",
+  "keywords": [
+    "speedata Publisher",
+    "xml",
+    "relaxng"
+  ],
+  "repository": "https://github.com/speedata/atom-schema-speedata",
+  "bugs": {
+    "url": "https://github.com/speedata/atom-schema-speedata/issues"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": "*"
+  },
+  "dependencies": {
+    "linter-autocomplete-jing": "^0.7.2"
+  }
+}

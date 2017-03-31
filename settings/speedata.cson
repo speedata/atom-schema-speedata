@@ -1,0 +1,16 @@
+'.text.xml':
+  'validation':
+    'rules': [
+      {
+        priority: 1
+        test:
+          rootNs: "urn:speedata.de:2009/publisher/en"
+        outcome:
+          schemaProps: [
+            {
+              lang: "rng"
+              path: "../schemata/layoutschema-en.rng"
+            }
+          ]
+      }
+    ]
