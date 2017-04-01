@@ -1,6 +1,6 @@
 {
   "name": "language-speedata-publisher",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Atom Package providing an editor for the speedata Publisher language",
   "keywords": [
     "speedata Publisher",
