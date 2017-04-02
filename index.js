@@ -1,3 +1,4 @@
+'use babel'
 // Entry point
 
 import manifest from './package.json'
