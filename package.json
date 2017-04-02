@@ -18,5 +18,8 @@
   },
   "package-deps": [
     "linter-autocomplete-jing"
-  ]
+  ],
+  "dependencies": {
+    "atom-package-deps": "^4.5.0"
+  }
 }

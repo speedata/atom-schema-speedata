@@ -1,4 +1,8 @@
-## 0.1.3
+## 0.1.4 - npm atom-package-deps
+
+* Try to fix package dependencies
+
+## 0.1.3 - Next attempt on package dependencies
 
 * Automatically install `linter-autocomplete-jing` on activate
 
