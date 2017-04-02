@@ -1,3 +1,7 @@
+## Upcoming
+
+* Automatically install `linter-autocomplete-jing` on activate
+
 ## 0.1.2 - Enhance readme
 
 * Include installation instructions
