@@ -4,9 +4,8 @@ This package allows you to use the atom editor with the speedata Publisher.
 
 ## Installation
 
-You can install this package from the [Atom](https://atom.io/) editor by going into the Preferences, select “Install” and type `speedata`, click on “Package”. You should see the “Install” button now.
+You can install this package from the [Atom](https://atom.io/) editor by going into the Preferences, select “Install” and type `speedata`, click on “Package”. You should see the “Install” button now. You could alternatively choose to install the package from the command line with `apm install language-speedata-publisher`.
 
-This package should install `linter-autocomplete-jing` automatically, but somehow this does not seem to work. So you need to install this with the procedure above.
 
 After restarting the editor you can create a (stub) Layout file with the correct name space:
 
