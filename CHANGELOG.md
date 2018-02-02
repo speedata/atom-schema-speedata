@@ -1,3 +1,5 @@
+## 0.1.5  - Update schema
+
 ## 0.1.4 - npm atom-package-deps
 
 * Try to fix package dependencies
