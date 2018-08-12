@@ -708,33 +708,38 @@
    </define>
    <define name="e_Circle">
       <element name="Circle">
-         <a:documentation>Create a circle.</a:documentation>
-         <attribute name="radiusx">
-            <a:documentation>Radius of the circle in grid cells (horizontal) or as an absolute length. In the future, a radiusy will allow to create an ellipse.</a:documentation>
-         </attribute>
+         <a:documentation>Create a circle or ellipse.</a:documentation>
          <optional>
             <attribute name="backgroundcolor">
-               <a:documentation>Color of the circle.</a:documentation>
+               <a:documentation>Color of the circle or ellipse.</a:documentation>
+            </attribute>
+         </optional>
+         <optional>
+            <attribute name="class">
+               <a:documentation>CSS class for the circle or ellipse.</a:documentation>
             </attribute>
          </optional>
          <optional>
             <attribute name="framecolor">
-               <a:documentation>Color of the circle line.</a:documentation>
+               <a:documentation>Color of the circle or ellipse line.</a:documentation>
+            </attribute>
+         </optional>
+         <optional>
+            <attribute name="id">
+               <a:documentation>CSS id for this circle or ellipse.</a:documentation>
+            </attribute>
+         </optional>
+         <attribute name="radiusx">
+            <a:documentation>Radius of the circle or ellipse in grid cells (horizontal) or as an absolute length.</a:documentation>
+         </attribute>
+         <optional>
+            <attribute name="radiusy">
+               <a:documentation>Radius of the circle or ellipse in grid cells (vertical) or as an absolute length.</a:documentation>
             </attribute>
          </optional>
          <optional>
             <attribute name="rulewidth">
                <a:documentation>The thickness of the border that is drawn around the object.</a:documentation>
-            </attribute>
-         </optional>
-         <optional>
-            <attribute name="class">
-               <a:documentation>CSS class for the circle.</a:documentation>
-            </attribute>
-         </optional>
-         <optional>
-            <attribute name="id">
-               <a:documentation>CSS id for this circle.</a:documentation>
             </attribute>
          </optional>
          <empty></empty>
@@ -2097,6 +2102,9 @@
                   </optional>
                   <optional>
                      <ref name="e_Stylesheet"></ref>
+                  </optional>
+                  <optional>
+                     <ref name="e_Loop"></ref>
                   </optional>
                   <optional>
                      <ref name="e_Switch"></ref>
