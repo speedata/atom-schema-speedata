@@ -1,7 +1,7 @@
 {
   "name": "language-speedata-publisher",
   "main": "index.js",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Atom Package providing an editor for the speedata Publisher language",
   "keywords": [
     "speedata Publisher",
