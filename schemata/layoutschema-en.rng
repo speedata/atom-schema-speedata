@@ -4180,6 +4180,11 @@
                      <a:documentation>The bottom padding of the background color (can be negative)</a:documentation>
                   </attribute>
                </optional>
+               <optional>
+                  <attribute name="letter-spacing">
+                     <a:documentation>Increase spacing between glyphs.</a:documentation>
+                  </attribute>
+               </optional>
                <zeroOrMore>
                   <choice>
                      <ref name="e_A"></ref>
@@ -4656,6 +4661,15 @@
          <optional>
             <attribute name="start">
                <a:documentation>The first column of the rule. Defaults to 1.</a:documentation>
+            </attribute>
+         </optional>
+         <optional>
+            <attribute name="break-below">
+               <a:documentation>Allow break below the table rule?</a:documentation>
+               <choice>
+                  <value>yes</value>
+                  <value>no</value>
+               </choice>
             </attribute>
          </optional>
          <optional>
