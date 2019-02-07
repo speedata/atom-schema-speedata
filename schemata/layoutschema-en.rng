@@ -695,6 +695,9 @@
                      <ref name="e_Trace"></ref>
                   </optional>
                   <optional>
+                     <ref name="e_U"></ref>
+                  </optional>
+                  <optional>
                      <ref name="e_Until"></ref>
                   </optional>
                   <optional>
@@ -711,7 +714,7 @@
    </define>
    <define name="e_Circle">
       <element name="Circle">
-         <a:documentation>Create a circle.</a:documentation>
+         <a:documentation>Create a circle or ellipse.</a:documentation>
          <optional>
             <attribute name="backgroundcolor">
                <a:documentation>Color of the circle.</a:documentation>
@@ -733,8 +736,13 @@
             </attribute>
          </optional>
          <attribute name="radiusx">
-            <a:documentation>Radius of the circle in grid cells (horizontal) or as an absolute length. In the future, a radiusy will allow to create an ellipse.</a:documentation>
+            <a:documentation>Radius of the circle in grid cells (horizontal) or as an absolute length. Use with radiusy to create an ellipse.</a:documentation>
          </attribute>
+         <optional>
+            <attribute name="radiusy">
+               <a:documentation>Radius of the ellipse in grid cells (vertical) or as an absolute length.</a:documentation>
+            </attribute>
+         </optional>
          <optional>
             <attribute name="rulewidth">
                <a:documentation>The thickness of the border that is drawn around the object.</a:documentation>
@@ -978,6 +986,37 @@
          <attribute name="select">
             <a:documentation>The selection (most likely a variable) that is to be copied.</a:documentation>
          </attribute>
+         <empty></empty>
+      </element>
+   </define>
+   <define name="e_DefineColorprofile">
+      <element name="DefineColorprofile">
+         <a:documentation>Associate an external color profile with a name. To be used in PDFOptions.</a:documentation>
+         <optional>
+            <attribute name="condition">
+               <a:documentation>Description of the output condition.</a:documentation>
+            </attribute>
+         </optional>
+         <attribute name="colors">
+            <a:documentation>Number of the colors in this color profile</a:documentation>
+         </attribute>
+         <attribute name="filename">
+            <a:documentation>Filename of the color profile.</a:documentation>
+         </attribute>
+         <attribute name="identifier">
+            <a:documentation>The official identifier for the registry.</a:documentation>
+         </attribute>
+         <attribute name="info">
+            <a:documentation>Short text about the color profile.</a:documentation>
+         </attribute>
+         <attribute name="name">
+            <a:documentation>The internal name of the color profile. To be used in PDFOptions.</a:documentation>
+         </attribute>
+         <optional>
+            <attribute name="registry">
+               <a:documentation>The name of the registry. Defaults to http://www.color.org/.</a:documentation>
+            </attribute>
+         </optional>
          <empty></empty>
       </element>
    </define>
@@ -1504,6 +1543,9 @@
                         <ref name="e_Trace"></ref>
                      </optional>
                      <optional>
+                        <ref name="e_U"></ref>
+                     </optional>
+                     <optional>
                         <ref name="e_Until"></ref>
                      </optional>
                      <optional>
@@ -1567,6 +1609,17 @@
                <optional>
                   <attribute name="id">
                      <a:documentation>CSS id for this element.</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="clip">
+                     <a:documentation>Constrain the contents of the frame to its area or allow them to protrude.</a:documentation>
+                     <choice>
+                        <value>yes</value>
+                        <a:documentation>The contents are clipped at the frame border (default).</a:documentation>
+                        <value>no</value>
+                        <a:documentation>The contents are not clipped.</a:documentation>
+                     </choice>
                   </attribute>
                </optional>
                <oneOrMore>
@@ -1881,17 +1934,12 @@
          </optional>
          <optional>
             <attribute name="file">
-               <a:documentation>Filename of the image. Can be a file in the search path or a file-URI for absolute paths (e.g. file:///path/to/image.pdf).</a:documentation>
+               <a:documentation>Filename of the image. Can be a file in the search path, an absolute file name, a file-URI for absolute paths (e.g. file:///path/to/image.pdf) or a location on the web (http, https).</a:documentation>
             </attribute>
          </optional>
          <optional>
             <attribute name="height">
                <a:documentation>Image height. One of &#39;auto&#39; (default, take image width), length (such as &#39;3cm&#39;) or number (in grid cells).</a:documentation>
-            </attribute>
-         </optional>
-         <optional>
-            <attribute name="href">
-               <a:documentation>An URL (http:// or file:) of the image. If external, it will be downloaded and cached in TEMPDIR/sp/images (which can be configured by setting the configuration file key imagecache). Alternative to ›file‹. When file: is used as a protocol, it can be a relative path. If no protocol is given, file: is assumed.</a:documentation>
             </attribute>
          </optional>
          <optional>
@@ -2070,6 +2118,9 @@
                   </optional>
                   <optional>
                      <ref name="e_DefineColor"></ref>
+                  </optional>
+                  <optional>
+                     <ref name="e_DefineColorprofile"></ref>
                   </optional>
                   <optional>
                      <ref name="e_DefineFontalias"></ref>
@@ -2358,6 +2409,9 @@
                         <ref name="e_Trace"></ref>
                      </optional>
                      <optional>
+                        <ref name="e_U"></ref>
+                     </optional>
+                     <optional>
                         <ref name="e_Until"></ref>
                      </optional>
                      <optional>
@@ -2644,11 +2698,6 @@
             </attribute>
          </optional>
          <optional>
-            <attribute name="colorprofile">
-               <a:documentation>The filename of the color profile. The default profile is »ISO Coated v2 (ECI)«. Only used when spot colors are used.</a:documentation>
-            </attribute>
-         </optional>
-         <optional>
             <attribute name="crop">
                <a:documentation>Crop the pages so that the pdf size of the page is at its minimum. Allowed values are yes, no and a length.</a:documentation>
             </attribute>
@@ -2695,30 +2744,66 @@
             <attribute name="mainlanguage">
                <a:documentation>The default language for text (hyphenation). You can also set the default language on the command line and locally set it at Paragraph.</a:documentation>
                <choice>
-                  <value>German</value>
-                  <a:documentation>Switch to German hyphenation patterns.</a:documentation>
-                  <value>English (Great Britain)</value>
-                  <a:documentation>Switch to British hyphenation patterns.</a:documentation>
+                  <value>Ancient Greek</value>
+                  <a:documentation>Switch to Ancient Greek hyphenation patterns.</a:documentation>
+                  <value>Armenian</value>
+                  <a:documentation>Switch to Armenian hyphenation patterns.</a:documentation>
+                  <value>Bahasa Indonesia</value>
+                  <a:documentation>Switch to Bahasa Indonesia hyphenation patterns.</a:documentation>
+                  <value>Basque</value>
+                  <a:documentation>Switch to Basque hyphenation patterns.</a:documentation>
+                  <value>Bulgarian</value>
+                  <a:documentation>Switch to Bulgarian (latin alphabet) hyphenation patterns.</a:documentation>
+                  <value>Catalan</value>
+                  <a:documentation>Switch to Catalan hyphenation patterns.</a:documentation>
+                  <value>Croatian</value>
+                  <a:documentation>Switch to Croatian hyphenation patterns.</a:documentation>
                   <value>Czech</value>
                   <a:documentation>Switch to Czech hyphenation patterns.</a:documentation>
                   <value>Danish</value>
                   <a:documentation>Switch to Danish hyphenation patterns.</a:documentation>
                   <value>Dutch</value>
                   <a:documentation>Switch to Dutch hyphenation patterns.</a:documentation>
+                  <value>English (Great Britain)</value>
+                  <a:documentation>Switch to British hyphenation patterns.</a:documentation>
                   <value>English (USA)</value>
                   <a:documentation>Switch to American English hyphenation patterns.</a:documentation>
+                  <value>Esperanto</value>
+                  <a:documentation>Switch to Esperanto hyphenation patterns.</a:documentation>
+                  <value>Estonian</value>
+                  <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
                   <value>Finnish</value>
                   <a:documentation>Switch to Finnish hyphenation patterns.</a:documentation>
                   <value>French</value>
                   <a:documentation>Switch to French hyphenation patterns.</a:documentation>
+                  <value>Galician</value>
+                  <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                  <value>German</value>
+                  <a:documentation>Switch to German hyphenation patterns.</a:documentation>
                   <value>Greek</value>
                   <a:documentation>Switch to Monotonic Greek hyphenation patterns.</a:documentation>
-                  <value>Ancient Greek</value>
-                  <a:documentation>Switch to Ancient Greek hyphenation patterns.</a:documentation>
+                  <value>Gujarati</value>
+                  <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
                   <value>Hungarian</value>
                   <a:documentation>Switch to Hungarian hyphenation patterns.</a:documentation>
+                  <value>Hindi</value>
+                  <a:documentation>Switch to Hindi hyphenation patterns.</a:documentation>
+                  <value>Icelandic</value>
+                  <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                  <value>Irish</value>
+                  <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
                   <value>Italian</value>
                   <a:documentation>Switch to Italian hyphenation patterns.</a:documentation>
+                  <value>Kannada</value>
+                  <a:documentation>Switch to Kannada hyphenation patterns.</a:documentation>
+                  <value>Kurmanji</value>
+                  <a:documentation>Switch to Kurmanji hyphenation patterns.</a:documentation>
+                  <value>Latvian</value>
+                  <a:documentation>Switch to Latvian hyphenation patterns.</a:documentation>
+                  <value>Lithuanian</value>
+                  <a:documentation>Switch to Lithuanian hyphenation patterns.</a:documentation>
+                  <value>Malayalam</value>
+                  <a:documentation>Switch to Malayalam hyphenation patterns.</a:documentation>
                   <value>Norwegian Bokmål</value>
                   <a:documentation>Switch to Norwegian Bokmål hyphenation patterns.</a:documentation>
                   <value>Norwegian Nynorsk</value>
@@ -2727,16 +2812,26 @@
                   <a:documentation>Switch to Polish hyphenation patterns.</a:documentation>
                   <value>Portuguese</value>
                   <a:documentation>Switch to Portuguese hyphenation patterns.</a:documentation>
+                  <value>Romanian</value>
+                  <a:documentation>Switch to Romanian hyphenation patterns.</a:documentation>
                   <value>Russian</value>
                   <a:documentation>Switch to Russian hyphenation patterns.</a:documentation>
                   <value>Serbian</value>
                   <a:documentation>Switch to Serbian hyphenation patterns.</a:documentation>
+                  <value>Slovak</value>
+                  <a:documentation>Switch to Slovak hyphenation patterns.</a:documentation>
+                  <value>Slovenian</value>
+                  <a:documentation>Switch to Slovenian hyphenation patterns.</a:documentation>
                   <value>Spanish</value>
                   <a:documentation>Switch to Spanish hyphenation patterns.</a:documentation>
                   <value>Swedish</value>
                   <a:documentation>Switch to Swedish hyphenation patterns.</a:documentation>
                   <value>Turkish</value>
                   <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                  <value>Ukrainian</value>
+                  <a:documentation>Switch to Ukrainian hyphenation patterns.</a:documentation>
+                  <value>Welsh</value>
+                  <a:documentation>Switch to Welsh hyphenation patterns.</a:documentation>
                </choice>
             </attribute>
          </optional>
@@ -2954,6 +3049,9 @@
                      <ref name="e_Trace"></ref>
                   </optional>
                   <optional>
+                     <ref name="e_U"></ref>
+                  </optional>
+                  <optional>
                      <ref name="e_Until"></ref>
                   </optional>
                   <optional>
@@ -3104,33 +3202,80 @@
                   </attribute>
                </optional>
                <optional>
+                  <attribute name="role">
+                     <a:documentation>The role for PDF/UA (accessibility, tagged PDF)</a:documentation>
+                     <choice>
+                        <value>H1</value>
+                        <a:documentation>Heading level 1</a:documentation>
+                        <value>P</value>
+                        <a:documentation>A paragraph.</a:documentation>
+                     </choice>
+                  </attribute>
+               </optional>
+               <optional>
                   <attribute name="language">
                      <a:documentation>Name of the language for hyphenation.</a:documentation>
                      <choice>
-                        <value>German</value>
-                        <a:documentation>Switch to German hyphenation patterns.</a:documentation>
-                        <value>English (Great Britain)</value>
-                        <a:documentation>Switch to British hyphenation patterns.</a:documentation>
+                        <value>Ancient Greek</value>
+                        <a:documentation>Switch to Ancient Greek hyphenation patterns.</a:documentation>
+                        <value>Armenian</value>
+                        <a:documentation>Switch to Armenian hyphenation patterns.</a:documentation>
+                        <value>Bahasa Indonesia</value>
+                        <a:documentation>Switch to Bahasa Indonesia hyphenation patterns.</a:documentation>
+                        <value>Basque</value>
+                        <a:documentation>Switch to Basque hyphenation patterns.</a:documentation>
+                        <value>Bulgarian</value>
+                        <a:documentation>Switch to Bulgarian (latin alphabet) hyphenation patterns.</a:documentation>
+                        <value>Catalan</value>
+                        <a:documentation>Switch to Catalan hyphenation patterns.</a:documentation>
+                        <value>Croatian</value>
+                        <a:documentation>Switch to Croatian hyphenation patterns.</a:documentation>
                         <value>Czech</value>
                         <a:documentation>Switch to Czech hyphenation patterns.</a:documentation>
                         <value>Danish</value>
                         <a:documentation>Switch to Danish hyphenation patterns.</a:documentation>
                         <value>Dutch</value>
                         <a:documentation>Switch to Dutch hyphenation patterns.</a:documentation>
+                        <value>English (Great Britain)</value>
+                        <a:documentation>Switch to British hyphenation patterns.</a:documentation>
                         <value>English (USA)</value>
                         <a:documentation>Switch to American English hyphenation patterns.</a:documentation>
+                        <value>Esperanto</value>
+                        <a:documentation>Switch to Esperanto hyphenation patterns.</a:documentation>
+                        <value>Estonian</value>
+                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
                         <value>Finnish</value>
                         <a:documentation>Switch to Finnish hyphenation patterns.</a:documentation>
                         <value>French</value>
                         <a:documentation>Switch to French hyphenation patterns.</a:documentation>
+                        <value>Galician</value>
+                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <value>German</value>
+                        <a:documentation>Switch to German hyphenation patterns.</a:documentation>
                         <value>Greek</value>
                         <a:documentation>Switch to Monotonic Greek hyphenation patterns.</a:documentation>
-                        <value>Ancient Greek</value>
-                        <a:documentation>Switch to Ancient Greek hyphenation patterns.</a:documentation>
+                        <value>Gujarati</value>
+                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
                         <value>Hungarian</value>
                         <a:documentation>Switch to Hungarian hyphenation patterns.</a:documentation>
+                        <value>Hindi</value>
+                        <a:documentation>Switch to Hindi hyphenation patterns.</a:documentation>
+                        <value>Icelandic</value>
+                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <value>Irish</value>
+                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
                         <value>Italian</value>
                         <a:documentation>Switch to Italian hyphenation patterns.</a:documentation>
+                        <value>Kannada</value>
+                        <a:documentation>Switch to Kannada hyphenation patterns.</a:documentation>
+                        <value>Kurmanji</value>
+                        <a:documentation>Switch to Kurmanji hyphenation patterns.</a:documentation>
+                        <value>Latvian</value>
+                        <a:documentation>Switch to Latvian hyphenation patterns.</a:documentation>
+                        <value>Lithuanian</value>
+                        <a:documentation>Switch to Lithuanian hyphenation patterns.</a:documentation>
+                        <value>Malayalam</value>
+                        <a:documentation>Switch to Malayalam hyphenation patterns.</a:documentation>
                         <value>Norwegian Bokmål</value>
                         <a:documentation>Switch to Norwegian Bokmål hyphenation patterns.</a:documentation>
                         <value>Norwegian Nynorsk</value>
@@ -3139,16 +3284,26 @@
                         <a:documentation>Switch to Polish hyphenation patterns.</a:documentation>
                         <value>Portuguese</value>
                         <a:documentation>Switch to Portuguese hyphenation patterns.</a:documentation>
+                        <value>Romanian</value>
+                        <a:documentation>Switch to Romanian hyphenation patterns.</a:documentation>
                         <value>Russian</value>
                         <a:documentation>Switch to Russian hyphenation patterns.</a:documentation>
                         <value>Serbian</value>
                         <a:documentation>Switch to Serbian hyphenation patterns.</a:documentation>
+                        <value>Slovak</value>
+                        <a:documentation>Switch to Slovak hyphenation patterns.</a:documentation>
+                        <value>Slovenian</value>
+                        <a:documentation>Switch to Slovenian hyphenation patterns.</a:documentation>
                         <value>Spanish</value>
                         <a:documentation>Switch to Spanish hyphenation patterns.</a:documentation>
                         <value>Swedish</value>
                         <a:documentation>Switch to Swedish hyphenation patterns.</a:documentation>
                         <value>Turkish</value>
                         <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <value>Ukrainian</value>
+                        <a:documentation>Switch to Ukrainian hyphenation patterns.</a:documentation>
+                        <value>Welsh</value>
+                        <a:documentation>Switch to Welsh hyphenation patterns.</a:documentation>
                      </choice>
                   </attribute>
                </optional>
@@ -3217,7 +3372,9 @@
                <attribute name="test">
                   <a:documentation>If this xpath expression evaluates to true, this page is taken as a master page.</a:documentation>
                </attribute>
-               <ref name="e_Margin"></ref>
+               <optional>
+                  <ref name="e_Margin"></ref>
+               </optional>
                <interleave>
                   <optional>
                      <oneOrMore>
@@ -3245,6 +3402,24 @@
    <define name="e_PDFOptions">
       <element name="PDFOptions">
          <a:documentation>Set PDF options like number of copies and such</a:documentation>
+         <optional>
+            <attribute name="format">
+               <a:documentation>Set the output format. Currently limited to PDF/X-3, PDF/X-4 and PDF/UA.</a:documentation>
+               <choice>
+                  <value>PDF/X-3</value>
+                  <a:documentation>Set the output to PDF/X-3.</a:documentation>
+                  <value>PDF/X-4</value>
+                  <a:documentation>Set the output to PDF/X-4.</a:documentation>
+                  <value>PDF/UA</value>
+                  <a:documentation>Set the output to PDF/UA.</a:documentation>
+               </choice>
+            </attribute>
+         </optional>
+         <optional>
+            <attribute name="colorprofile">
+               <a:documentation>Set the name of the color profile. Has to be defined with DefineColorprofile.</a:documentation>
+            </attribute>
+         </optional>
          <optional>
             <attribute name="author">
                <a:documentation>Set the author of the document</a:documentation>
@@ -4626,6 +4801,7 @@
                <zeroOrMore>
                   <choice>
                      <ref name="e_Barcode"></ref>
+                     <ref name="e_Bookmark"></ref>
                      <ref name="e_Box"></ref>
                      <ref name="e_Copy-of"></ref>
                      <ref name="e_Frame"></ref>
@@ -5298,6 +5474,9 @@
                         <ref name="e_Trace"></ref>
                      </optional>
                      <optional>
+                        <ref name="e_U"></ref>
+                     </optional>
+                     <optional>
                         <ref name="e_Until"></ref>
                      </optional>
                      <optional>
@@ -5380,7 +5559,7 @@
    </define>
    <define name="e_While">
       <element name="While">
-         <a:documentation>Create a loop. All child elements are executed, as long as the condition in the test attribute evaluates to true.</a:documentation>
+         <a:documentation>Create a loop. All child elements are executed as long as the condition in the test attribute evaluates to true.</a:documentation>
          <interleave>
             <group>
                <attribute name="test">
@@ -5564,6 +5743,9 @@
                      </optional>
                      <optional>
                         <ref name="e_Trace"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_U"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Until"></ref>
