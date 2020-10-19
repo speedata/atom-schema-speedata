@@ -22,7 +22,30 @@
                      <a:documentation>The target of the document link (a Mark). Example: article123</a:documentation>
                   </attribute>
                </optional>
-               <ref name="e_Value"></ref>
+               <zeroOrMore>
+                  <choice>
+                     <ref name="e_A"></ref>
+                     <ref name="e_Action"></ref>
+                     <ref name="e_B"></ref>
+                     <ref name="e_Br"></ref>
+                     <ref name="e_Color"></ref>
+                     <ref name="e_Fontface"></ref>
+                     <ref name="e_ForAll"></ref>
+                     <ref name="e_Frame"></ref>
+                     <ref name="e_HSpace"></ref>
+                     <ref name="e_I"></ref>
+                     <ref name="e_Image"></ref>
+                     <ref name="e_Loop"></ref>
+                     <ref name="e_NoBreak"></ref>
+                     <ref name="e_Sub"></ref>
+                     <ref name="e_Sup"></ref>
+                     <ref name="e_Span"></ref>
+                     <ref name="e_Switch"></ref>
+                     <ref name="e_U"></ref>
+                     <ref name="e_URL"></ref>
+                     <ref name="e_Value"></ref>
+                  </choice>
+               </zeroOrMore>
             </group>
             <ref name="foreign-nodes"></ref>
          </interleave>
@@ -378,6 +401,15 @@
             </attribute>
          </optional>
          <optional>
+            <attribute name="keepfontsize">
+               <a:documentation>Try to keep the size of the requested font. Works with EAN13 only.</a:documentation>
+               <choice>
+                  <value>yes</value>
+                  <value>no</value>
+               </choice>
+            </attribute>
+         </optional>
+         <optional>
             <attribute name="overshoot">
                <a:documentation>The factor denoting the extra length of the outer and middle bar. Only useful with EAN13.</a:documentation>
             </attribute>
@@ -563,6 +595,9 @@
                      <ref name="e_Br"></ref>
                   </optional>
                   <optional>
+                     <ref name="e_Color"></ref>
+                  </optional>
+                  <optional>
                      <ref name="e_Column"></ref>
                   </optional>
                   <optional>
@@ -651,6 +686,9 @@
                   </optional>
                   <optional>
                      <ref name="e_Output"></ref>
+                  </optional>
+                  <optional>
+                     <ref name="e_Pagetype"></ref>
                   </optional>
                   <optional>
                      <ref name="e_Pageformat"></ref>
@@ -871,10 +909,11 @@
             <group>
                <oneOrMore>
                   <choice>
+                     <ref name="e_Column"></ref>
+                     <ref name="e_Copy-of"></ref>
+                     <ref name="e_ForAll"></ref>
                      <ref name="e_Loop"></ref>
                      <ref name="e_Switch"></ref>
-                     <ref name="e_ForAll"></ref>
-                     <ref name="e_Column"></ref>
                   </choice>
                </oneOrMore>
             </group>
@@ -1295,6 +1334,19 @@
             </attribute>
          </optional>
          <optional>
+            <attribute name="html-vertical-spacing">
+               <a:documentation>Set the vertical spacing for HTML contents. Defaults to “off”.</a:documentation>
+               <choice>
+                  <value>all</value>
+                  <a:documentation>Allow each vertical spacing.</a:documentation>
+                  <value>inner</value>
+                  <a:documentation>Discard first and last vertical spacing.</a:documentation>
+                  <value>off</value>
+                  <a:documentation>Ignore all vertical spacing.</a:documentation>
+               </choice>
+            </attribute>
+         </optional>
+         <optional>
             <attribute name="widow">
                <a:documentation>If yes, allow widows (last line of paragraph is on the next page). If you provide a number, it is the number of lines that must be kept together.  Default: no.</a:documentation>
                <data type="string">
@@ -1437,6 +1489,9 @@
                         <ref name="e_Br"></ref>
                      </optional>
                      <optional>
+                        <ref name="e_Color"></ref>
+                     </optional>
+                     <optional>
                         <ref name="e_Column"></ref>
                      </optional>
                      <optional>
@@ -1525,6 +1580,9 @@
                      </optional>
                      <optional>
                         <ref name="e_Output"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_Pagetype"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Pageformat"></ref>
@@ -1809,17 +1867,6 @@
             </attribute>
          </optional>
          <empty></empty>
-      </element>
-   </define>
-   <define name="e_HTML">
-      <element name="HTML">
-         <a:documentation>Collect HTML from data.</a:documentation>
-         <interleave>
-            <group>
-               <ref name="e_Value"></ref>
-            </group>
-            <ref name="foreign-nodes"></ref>
-         </interleave>
       </element>
    </define>
    <define name="e_I">
@@ -2134,12 +2181,28 @@
                <attribute name="name">
                   <a:documentation>The internal name of the font file. To be used within DefineFontfamily.</a:documentation>
                </attribute>
+               <optional>
+                  <attribute name="features">
+                     <a:documentation>A comma separated list of OpenType features, such as +liga,-kern</a:documentation>
+                  </attribute>
+               </optional>
                <attribute name="filename">
                   <a:documentation>The name (with extension) of the font file.</a:documentation>
                </attribute>
                <optional>
                   <attribute name="marginprotrusion">
                      <a:documentation>The amount of protrusion glyphs like -, . and - stick into the right margin. Highly font dependent. Defaults to 0.</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="mode">
+                     <a:documentation>Set the shaping mode of the font. Defaults to fontforge.</a:documentation>
+                     <choice>
+                        <value>fontforge</value>
+                        <a:documentation>The old and well tested font hanlder. Renders western scripts well, but no right-to-left or other complex scripts.</a:documentation>
+                        <value>harfbuzz</value>
+                        <a:documentation>The experimental new renderer that will eventually handle all scripts including right-to-left.</a:documentation>
+                     </choice>
                   </attribute>
                </optional>
                <optional>
@@ -2347,6 +2410,9 @@
                         <ref name="e_Br"></ref>
                      </optional>
                      <optional>
+                        <ref name="e_Color"></ref>
+                     </optional>
+                     <optional>
                         <ref name="e_Column"></ref>
                      </optional>
                      <optional>
@@ -2435,6 +2501,9 @@
                      </optional>
                      <optional>
                         <ref name="e_Output"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_Pagetype"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Pageformat"></ref>
@@ -2852,7 +2921,7 @@
          </optional>
          <optional>
             <attribute name="mainlanguage">
-               <a:documentation>The default language for text (hyphenation). You can also set the default language on the command line and locally set it at Paragraph.</a:documentation>
+               <a:documentation>The default language for text (hyphenation and rendering). You can also set the default language on the command line and locally set it at Paragraph and Textblock.</a:documentation>
                <choice>
                   <data type="string">
                      <param name="pattern">\{.+\}</param>
@@ -2869,6 +2938,8 @@
                   <a:documentation>Switch to Bulgarian (latin alphabet) hyphenation patterns.</a:documentation>
                   <value>Catalan</value>
                   <a:documentation>Switch to Catalan hyphenation patterns.</a:documentation>
+                  <value>Chinese</value>
+                  <a:documentation>Switch to Chinese language setting.</a:documentation>
                   <value>Croatian</value>
                   <a:documentation>Switch to Croatian hyphenation patterns.</a:documentation>
                   <value>Czech</value>
@@ -2921,6 +2992,8 @@
                   <a:documentation>Switch to Norwegian Bokmål hyphenation patterns.</a:documentation>
                   <value>Norwegian Nynorsk</value>
                   <a:documentation>Switch to Norwegian Nynorsk hyphenation patterns.</a:documentation>
+                  <value>Other</value>
+                  <a:documentation>Don&#39;t switch to any of these languages. Useful if a text does not render correctly.</a:documentation>
                   <value>Polish</value>
                   <a:documentation>Switch to Polish hyphenation patterns.</a:documentation>
                   <value>Portuguese</value>
@@ -2949,6 +3022,11 @@
             </attribute>
          </optional>
          <optional>
+            <attribute name="randomseed">
+               <a:documentation>Set the seed for the random number generator (a positive integer).</a:documentation>
+            </attribute>
+         </optional>
+         <optional>
             <attribute name="resetmarks">
                <a:documentation>Yes: ignore the marks file from previous run.</a:documentation>
                <choice>
@@ -2967,6 +3045,8 @@
                   <a:documentation>Show error message (default)</a:documentation>
                   <value>no</value>
                   <a:documentation>Do not show an error message</a:documentation>
+                  <value>warning</value>
+                  <a:documentation>Show a warning</a:documentation>
                </choice>
             </attribute>
          </optional>
@@ -3004,6 +3084,9 @@
                   </optional>
                   <optional>
                      <ref name="e_Br"></ref>
+                  </optional>
+                  <optional>
+                     <ref name="e_Color"></ref>
                   </optional>
                   <optional>
                      <ref name="e_Column"></ref>
@@ -3094,6 +3177,9 @@
                   </optional>
                   <optional>
                      <ref name="e_Output"></ref>
+                  </optional>
+                  <optional>
+                     <ref name="e_Pagetype"></ref>
                   </optional>
                   <optional>
                      <ref name="e_Pageformat"></ref>
@@ -3315,6 +3401,55 @@
                   </attribute>
                </optional>
                <optional>
+                  <attribute name="html">
+                     <a:documentation>Set the HTML processing mode. Defaults to &#39;all&#39;.</a:documentation>
+                     <choice>
+                        <value>all</value>
+                        <a:documentation>Interpret HTML starting from the current element.</a:documentation>
+                        <value>inner</value>
+                        <a:documentation>Ignore the name of the outer element.</a:documentation>
+                        <value>off</value>
+                        <a:documentation>Switch off HTML in this paragraph. Use only the text value.</a:documentation>
+                     </choice>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="label-left">
+                     <a:documentation>A text to the left of the paragraph.</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="label-left-width">
+                     <a:documentation>Width of the text.</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="label-left-align">
+                     <a:documentation>Alignment of the text.</a:documentation>
+                     <choice>
+                        <value>left</value>
+                        <a:documentation>Left aligned</a:documentation>
+                        <value>right</value>
+                        <a:documentation>Right aligned</a:documentation>
+                     </choice>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="label-left-distance">
+                     <a:documentation>Horizontal distance between text and paragraph (if right aligned).</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="padding-left">
+                     <a:documentation>Set the left padding, i.e. the inner distance to the allocated area.</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="padding-right">
+                     <a:documentation>Set the right padding, i.e. the inner distance to the allocated area.</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
                   <attribute name="role">
                      <a:documentation>The role for PDF/UA (accessibility, tagged PDF)</a:documentation>
                      <choice>
@@ -3327,7 +3462,7 @@
                </optional>
                <optional>
                   <attribute name="language">
-                     <a:documentation>Name of the language for hyphenation.</a:documentation>
+                     <a:documentation>Name of the language for hyphenation and rendering.</a:documentation>
                      <choice>
                         <value>Ancient Greek</value>
                         <a:documentation>Switch to Ancient Greek hyphenation patterns.</a:documentation>
@@ -3341,6 +3476,8 @@
                         <a:documentation>Switch to Bulgarian (latin alphabet) hyphenation patterns.</a:documentation>
                         <value>Catalan</value>
                         <a:documentation>Switch to Catalan hyphenation patterns.</a:documentation>
+                        <value>Chinese</value>
+                        <a:documentation>Switch to Chinese language setting.</a:documentation>
                         <value>Croatian</value>
                         <a:documentation>Switch to Croatian hyphenation patterns.</a:documentation>
                         <value>Czech</value>
@@ -3393,6 +3530,8 @@
                         <a:documentation>Switch to Norwegian Bokmål hyphenation patterns.</a:documentation>
                         <value>Norwegian Nynorsk</value>
                         <a:documentation>Switch to Norwegian Nynorsk hyphenation patterns.</a:documentation>
+                        <value>Other</value>
+                        <a:documentation>Don&#39;t switch to any of these languages. Useful if a text does not render correctly.</a:documentation>
                         <value>Polish</value>
                         <a:documentation>Switch to Polish hyphenation patterns.</a:documentation>
                         <value>Portuguese</value>
@@ -4377,10 +4516,13 @@
                <oneOrMore>
                   <interleave>
                      <optional>
-                        <ref name="e_Paragraph"></ref>
+                        <ref name="e_Attribute"></ref>
                      </optional>
                      <optional>
-                        <ref name="e_Value"></ref>
+                        <ref name="e_Column"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_Columns"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Copy-of"></ref>
@@ -4389,25 +4531,13 @@
                         <ref name="e_Element"></ref>
                      </optional>
                      <optional>
-                        <ref name="e_Attribute"></ref>
-                     </optional>
-                     <optional>
-                        <ref name="e_Switch"></ref>
+                        <ref name="e_ForAll"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Loop"></ref>
                      </optional>
                      <optional>
-                        <ref name="e_ForAll"></ref>
-                     </optional>
-                     <optional>
-                        <ref name="e_Tr"></ref>
-                     </optional>
-                     <optional>
-                        <ref name="e_Td"></ref>
-                     </optional>
-                     <optional>
-                        <ref name="e_Columns"></ref>
+                        <ref name="e_Paragraph"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Table"></ref>
@@ -4422,7 +4552,19 @@
                         <ref name="e_Tablehead"></ref>
                      </optional>
                      <optional>
+                        <ref name="e_Td"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_Tr"></ref>
+                     </optional>
+                     <optional>
                         <ref name="e_SortSequence"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_Switch"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_Value"></ref>
                      </optional>
                   </interleave>
                </oneOrMore>
@@ -4762,16 +4904,19 @@
                <oneOrMore>
                   <interleave>
                      <optional>
-                        <ref name="e_Tablerule"></ref>
-                     </optional>
-                     <optional>
                         <ref name="e_Copy-of"></ref>
                      </optional>
                      <optional>
-                        <ref name="e_Tr"></ref>
+                        <ref name="e_ForAll"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Switch"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_Tablerule"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_Tr"></ref>
                      </optional>
                   </interleave>
                </oneOrMore>
@@ -5045,6 +5190,105 @@
                   </attribute>
                </optional>
                <optional>
+                  <attribute name="language">
+                     <a:documentation>Set the language for hyphenation and rendering.</a:documentation>
+                     <choice>
+                        <value>Ancient Greek</value>
+                        <a:documentation>Switch to Ancient Greek hyphenation patterns.</a:documentation>
+                        <value>Armenian</value>
+                        <a:documentation>Switch to Armenian hyphenation patterns.</a:documentation>
+                        <value>Bahasa Indonesia</value>
+                        <a:documentation>Switch to Bahasa Indonesia hyphenation patterns.</a:documentation>
+                        <value>Basque</value>
+                        <a:documentation>Switch to Basque hyphenation patterns.</a:documentation>
+                        <value>Bulgarian</value>
+                        <a:documentation>Switch to Bulgarian (latin alphabet) hyphenation patterns.</a:documentation>
+                        <value>Catalan</value>
+                        <a:documentation>Switch to Catalan hyphenation patterns.</a:documentation>
+                        <value>Chinese</value>
+                        <a:documentation>Switch to Chinese language setting.</a:documentation>
+                        <value>Croatian</value>
+                        <a:documentation>Switch to Croatian hyphenation patterns.</a:documentation>
+                        <value>Czech</value>
+                        <a:documentation>Switch to Czech hyphenation patterns.</a:documentation>
+                        <value>Danish</value>
+                        <a:documentation>Switch to Danish hyphenation patterns.</a:documentation>
+                        <value>Dutch</value>
+                        <a:documentation>Switch to Dutch hyphenation patterns.</a:documentation>
+                        <value>English (Great Britain)</value>
+                        <a:documentation>Switch to British hyphenation patterns.</a:documentation>
+                        <value>English (USA)</value>
+                        <a:documentation>Switch to American English hyphenation patterns.</a:documentation>
+                        <value>Esperanto</value>
+                        <a:documentation>Switch to Esperanto hyphenation patterns.</a:documentation>
+                        <value>Estonian</value>
+                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <value>Finnish</value>
+                        <a:documentation>Switch to Finnish hyphenation patterns.</a:documentation>
+                        <value>French</value>
+                        <a:documentation>Switch to French hyphenation patterns.</a:documentation>
+                        <value>Galician</value>
+                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <value>German</value>
+                        <a:documentation>Switch to German hyphenation patterns.</a:documentation>
+                        <value>Greek</value>
+                        <a:documentation>Switch to Monotonic Greek hyphenation patterns.</a:documentation>
+                        <value>Gujarati</value>
+                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <value>Hungarian</value>
+                        <a:documentation>Switch to Hungarian hyphenation patterns.</a:documentation>
+                        <value>Hindi</value>
+                        <a:documentation>Switch to Hindi hyphenation patterns.</a:documentation>
+                        <value>Icelandic</value>
+                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <value>Irish</value>
+                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <value>Italian</value>
+                        <a:documentation>Switch to Italian hyphenation patterns.</a:documentation>
+                        <value>Kannada</value>
+                        <a:documentation>Switch to Kannada hyphenation patterns.</a:documentation>
+                        <value>Kurmanji</value>
+                        <a:documentation>Switch to Kurmanji hyphenation patterns.</a:documentation>
+                        <value>Latvian</value>
+                        <a:documentation>Switch to Latvian hyphenation patterns.</a:documentation>
+                        <value>Lithuanian</value>
+                        <a:documentation>Switch to Lithuanian hyphenation patterns.</a:documentation>
+                        <value>Malayalam</value>
+                        <a:documentation>Switch to Malayalam hyphenation patterns.</a:documentation>
+                        <value>Norwegian Bokmål</value>
+                        <a:documentation>Switch to Norwegian Bokmål hyphenation patterns.</a:documentation>
+                        <value>Norwegian Nynorsk</value>
+                        <a:documentation>Switch to Norwegian Nynorsk hyphenation patterns.</a:documentation>
+                        <value>Other</value>
+                        <a:documentation>Don&#39;t switch to any of these languages. Useful if a text does not render correctly.</a:documentation>
+                        <value>Polish</value>
+                        <a:documentation>Switch to Polish hyphenation patterns.</a:documentation>
+                        <value>Portuguese</value>
+                        <a:documentation>Switch to Portuguese hyphenation patterns.</a:documentation>
+                        <value>Romanian</value>
+                        <a:documentation>Switch to Romanian hyphenation patterns.</a:documentation>
+                        <value>Russian</value>
+                        <a:documentation>Switch to Russian hyphenation patterns.</a:documentation>
+                        <value>Serbian</value>
+                        <a:documentation>Switch to Serbian hyphenation patterns.</a:documentation>
+                        <value>Slovak</value>
+                        <a:documentation>Switch to Slovak hyphenation patterns.</a:documentation>
+                        <value>Slovenian</value>
+                        <a:documentation>Switch to Slovenian hyphenation patterns.</a:documentation>
+                        <value>Spanish</value>
+                        <a:documentation>Switch to Spanish hyphenation patterns.</a:documentation>
+                        <value>Swedish</value>
+                        <a:documentation>Switch to Swedish hyphenation patterns.</a:documentation>
+                        <value>Turkish</value>
+                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <value>Ukrainian</value>
+                        <a:documentation>Switch to Ukrainian hyphenation patterns.</a:documentation>
+                        <value>Welsh</value>
+                        <a:documentation>Switch to Welsh hyphenation patterns.</a:documentation>
+                     </choice>
+                  </attribute>
+               </optional>
+               <optional>
                   <attribute name="minheight">
                      <a:documentation>The minimum height of the textblock, given as a length or number (grid cells).</a:documentation>
                   </attribute>
@@ -5065,7 +5309,6 @@
                      <ref name="e_Bookmark"></ref>
                      <ref name="e_Copy-of"></ref>
                      <ref name="e_ForAll"></ref>
-                     <ref name="e_HTML"></ref>
                      <ref name="e_Loop"></ref>
                      <ref name="e_Ol"></ref>
                      <ref name="e_Paragraph"></ref>
@@ -5105,7 +5348,6 @@
                      <ref name="e_Bookmark"></ref>
                      <ref name="e_Copy-of"></ref>
                      <ref name="e_ForAll"></ref>
-                     <ref name="e_HTML"></ref>
                      <ref name="e_Image"></ref>
                      <ref name="e_Loop"></ref>
                      <ref name="e_Ol"></ref>
@@ -5164,6 +5406,17 @@
                   <a:documentation>Show hyphenation points.</a:documentation>
                   <value>no</value>
                   <a:documentation>Don&#39;t show any hyphenation points (default).</a:documentation>
+               </choice>
+            </attribute>
+         </optional>
+         <optional>
+            <attribute name="kerning">
+               <a:documentation>Draw little marks to show all kerning.</a:documentation>
+               <choice>
+                  <value>yes</value>
+                  <a:documentation>Show kerning.</a:documentation>
+                  <value>no</value>
+                  <a:documentation>Don&#39;t show any kerning (default).</a:documentation>
                </choice>
             </attribute>
          </optional>
@@ -5477,6 +5730,9 @@
                         <ref name="e_Br"></ref>
                      </optional>
                      <optional>
+                        <ref name="e_Color"></ref>
+                     </optional>
+                     <optional>
                         <ref name="e_Column"></ref>
                      </optional>
                      <optional>
@@ -5565,6 +5821,9 @@
                      </optional>
                      <optional>
                         <ref name="e_Output"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_Pagetype"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Pageformat"></ref>
@@ -5748,6 +6007,9 @@
                         <ref name="e_Br"></ref>
                      </optional>
                      <optional>
+                        <ref name="e_Color"></ref>
+                     </optional>
+                     <optional>
                         <ref name="e_Column"></ref>
                      </optional>
                      <optional>
@@ -5836,6 +6098,9 @@
                      </optional>
                      <optional>
                         <ref name="e_Output"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_Pagetype"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Pageformat"></ref>
