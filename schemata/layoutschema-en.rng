@@ -392,6 +392,11 @@
          </optional>
          <optional>
             <attribute name="fontface">
+               <a:documentation>Deprecated. Use fontfamily instead.</a:documentation>
+            </attribute>
+         </optional>
+         <optional>
+            <attribute name="fontfamily">
                <a:documentation>Name of the font of the text that can be placed beneath the barcode. Not used in all codes.</a:documentation>
             </attribute>
          </optional>
@@ -1185,7 +1190,7 @@
    </define>
    <define name="e_DefineFontfamily">
       <element name="DefineFontfamily">
-         <a:documentation>Defines a font family consisting of the shapes »regular», »bold«, »bold italic« and »italic«. To be used in Paragraph, Textblock, Fontface and Table with the attribute fontface.</a:documentation>
+         <a:documentation>Defines a font family consisting of the shapes »regular», »bold«, »bold italic« and »italic«. To be used in Paragraph, Textblock, Fontface and Table with the attribute fontfamily.</a:documentation>
          <interleave>
             <group>
                <attribute name="fontsize">
@@ -1221,7 +1226,7 @@
          <a:documentation>Define text formatting instructions. A textformat is used to align and indent text and create margins and rules before and after the text.</a:documentation>
          <optional>
             <attribute name="alignment">
-               <a:documentation>Determines the formatting of the text.</a:documentation>
+               <a:documentation>Determines the formatting of the text. It defaults to justified.</a:documentation>
                <choice>
                   <value>justified</value>
                   <a:documentation>Textblock has a rectangular shape.</a:documentation>
@@ -1231,6 +1236,10 @@
                   <a:documentation>The text is ragged right at the left margin.</a:documentation>
                   <value>centered</value>
                   <a:documentation>The text is ragged at the left and the right margin.</a:documentation>
+                  <value>start</value>
+                  <a:documentation>The text is ragged at the right margin for left-to-right texts and at the left margin for right-to-left texts.</a:documentation>
+                  <value>end</value>
+                  <a:documentation>The text is ragged at the left margin for left-to-right texts and at the right margin for right-to-left texts.</a:documentation>
                </choice>
             </attribute>
          </optional>
@@ -1967,9 +1976,16 @@
                      <a:documentation>Set the color of the initial. Defaults to black.</a:documentation>
                   </attribute>
                </optional>
-               <attribute name="fontface">
-                  <a:documentation>Choose the font family. Only »Regular« shape is used at the moment.</a:documentation>
-               </attribute>
+               <optional>
+                  <attribute name="fontface">
+                     <a:documentation>Deprecated. Use fontfamily instead.</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="fontfamily">
+                     <a:documentation>Choose the font family. Only »Regular« shape is used at the moment.</a:documentation>
+                  </attribute>
+               </optional>
                <optional>
                   <attribute name="padding-left">
                      <a:documentation>Insert space left of the initial.</a:documentation>
@@ -1978,6 +1994,16 @@
                <optional>
                   <attribute name="padding-right">
                      <a:documentation>Insert space right of the initial.</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="padding-top">
+                     <a:documentation>Insert space top of the initial.</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="padding-bottom">
+                     <a:documentation>Insert space bottom of the initial.</a:documentation>
                   </attribute>
                </optional>
                <ref name="e_Value"></ref>
@@ -2803,6 +2829,11 @@
                </optional>
                <optional>
                   <attribute name="fontface">
+                     <a:documentation>Deprecated. Use fontfamily instead.</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="fontfamily">
                      <a:documentation>The name of the fontface for text to be reduced. The default is »text« (lowercase t).</a:documentation>
                   </attribute>
                </optional>
@@ -2926,6 +2957,9 @@
                   <data type="string">
                      <param name="pattern">\{.+\}</param>
                   </data>
+                  <data type="string">
+                     <param name="pattern">--|bg|ca|cs|cy|da|de|el|en|en_GB|en_US|eo|es|et|eu|fi|fr|ga|gl|grc|gu|hi|hr|hu|hy|id|is|it|kn|ku|lt|lv|ml|nb|nl|nn|pl|pt|ro|ru|sc|sk|sl|sr|sv|tr|uk|zh</param>
+                  </data>
                   <value>Ancient Greek</value>
                   <a:documentation>Switch to Ancient Greek hyphenation patterns.</a:documentation>
                   <value>Armenian</value>
@@ -3004,6 +3038,8 @@
                   <a:documentation>Switch to Russian hyphenation patterns.</a:documentation>
                   <value>Serbian</value>
                   <a:documentation>Switch to Serbian hyphenation patterns.</a:documentation>
+                  <value>Serbian (cyrillic)</value>
+                  <a:documentation>Switch to Serbian hyphenation patterns with cyrillic script.</a:documentation>
                   <value>Slovak</value>
                   <a:documentation>Switch to Slovak hyphenation patterns.</a:documentation>
                   <value>Slovenian</value>
@@ -3391,13 +3427,37 @@
                   </attribute>
                </optional>
                <optional>
+                  <attribute name="bidi">
+                     <a:documentation>Analyze direction of the text. Useful for mixing left-to-right and right-to-left text.</a:documentation>
+                     <choice>
+                        <value>yes</value>
+                        <a:documentation>Analyze text.</a:documentation>
+                        <value>no</value>
+                        <a:documentation>Don&#39;t handle mixed directions (default).</a:documentation>
+                        <data type="string">
+                           <param name="pattern">\{.+\}</param>
+                        </data>
+                     </choice>
+                  </attribute>
+               </optional>
+               <optional>
                   <attribute name="color">
                      <a:documentation>Color of the paragraph. Must be defined with DefineColor before use.</a:documentation>
                   </attribute>
                </optional>
                <optional>
+                  <attribute name="direction">
+                     <a:documentation>The text direction (ltr or rtl)</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
                   <attribute name="fontface">
-                     <a:documentation>The name of the fontface for the paragraph. The default is »text« (lowercase t).</a:documentation>
+                     <a:documentation>Deprecated. Use fontfamily instead.</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="fontfamily">
+                     <a:documentation>The name of the font family for the paragraph. The default is »text« (lowercase t).</a:documentation>
                   </attribute>
                </optional>
                <optional>
@@ -3464,6 +3524,12 @@
                   <attribute name="language">
                      <a:documentation>Name of the language for hyphenation and rendering.</a:documentation>
                      <choice>
+                        <data type="string">
+                           <param name="pattern">\{.+\}</param>
+                        </data>
+                        <data type="string">
+                           <param name="pattern">--|bg|ca|cs|cy|da|de|el|en|en_GB|en_US|eo|es|et|eu|fi|fr|ga|gl|grc|gu|hi|hr|hu|hy|id|is|it|kn|ku|lt|lv|ml|nb|nl|nn|pl|pt|ro|ru|sc|sk|sl|sr|sv|tr|uk|zh</param>
+                        </data>
                         <value>Ancient Greek</value>
                         <a:documentation>Switch to Ancient Greek hyphenation patterns.</a:documentation>
                         <value>Armenian</value>
@@ -3542,6 +3608,8 @@
                         <a:documentation>Switch to Russian hyphenation patterns.</a:documentation>
                         <value>Serbian</value>
                         <a:documentation>Switch to Serbian hyphenation patterns.</a:documentation>
+                        <value>Serbian (cyrillic)</value>
+                        <a:documentation>Switch to Serbian hyphenation patterns with cyrillic script.</a:documentation>
                         <value>Slovak</value>
                         <a:documentation>Switch to Slovak hyphenation patterns.</a:documentation>
                         <value>Slovenian</value>
@@ -3614,6 +3682,20 @@
          <interleave>
             <group>
                <optional>
+                  <attribute name="columnordering">
+                     <a:documentation>Reverse the logical column ordering if in rtl mode. Only changes areas that are next to each other.</a:documentation>
+                     <choice>
+                        <value>ltr</value>
+                        <a:documentation>The columns are ordered from first defined to last defined. (default)</a:documentation>
+                        <value>rtl</value>
+                        <a:documentation>Reverse the order of columns. The first defined column will be the last column.</a:documentation>
+                        <data type="string">
+                           <param name="pattern">\{.+\}</param>
+                        </data>
+                     </choice>
+                  </attribute>
+               </optional>
+               <optional>
                   <attribute name="defaultcolor">
                      <a:documentation>The default text color for this page (unless overridden in Paragraph or Textblock). Defaults to &#39;black&#39;.</a:documentation>
                   </attribute>
@@ -3621,6 +3703,16 @@
                <attribute name="name">
                   <a:documentation>Name of the master page. It is for informational purpose and as a selection for NewPage.</a:documentation>
                </attribute>
+               <optional>
+                  <attribute name="width">
+                     <a:documentation>The width of the page. Defaults to the global setting.</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="height">
+                     <a:documentation>The height of the page. Defaults to the global setting.</a:documentation>
+                  </attribute>
+               </optional>
                <attribute name="test">
                   <a:documentation>If this xpath expression evaluates to true, this page is taken as a master page.</a:documentation>
                </attribute>
@@ -3967,6 +4059,9 @@
                   <interleave>
                      <optional>
                         <ref name="e_Image"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_Bookmark"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Box"></ref>
@@ -4643,6 +4738,118 @@
                   </attribute>
                </optional>
                <optional>
+                  <attribute name="fontfamily">
+                     <a:documentation>The name of the font family to switch to.</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="language">
+                     <a:documentation>Name of the language for hyphenation and rendering.</a:documentation>
+                     <choice>
+                        <data type="string">
+                           <param name="pattern">\{.+\}</param>
+                        </data>
+                        <data type="string">
+                           <param name="pattern">--|bg|ca|cs|cy|da|de|el|en|en_GB|en_US|eo|es|et|eu|fi|fr|ga|gl|grc|gu|hi|hr|hu|hy|id|is|it|kn|ku|lt|lv|ml|nb|nl|nn|pl|pt|ro|ru|sc|sk|sl|sr|sv|tr|uk|zh</param>
+                        </data>
+                        <value>Ancient Greek</value>
+                        <a:documentation>Switch to Ancient Greek hyphenation patterns.</a:documentation>
+                        <value>Armenian</value>
+                        <a:documentation>Switch to Armenian hyphenation patterns.</a:documentation>
+                        <value>Bahasa Indonesia</value>
+                        <a:documentation>Switch to Bahasa Indonesia hyphenation patterns.</a:documentation>
+                        <value>Basque</value>
+                        <a:documentation>Switch to Basque hyphenation patterns.</a:documentation>
+                        <value>Bulgarian</value>
+                        <a:documentation>Switch to Bulgarian (latin alphabet) hyphenation patterns.</a:documentation>
+                        <value>Catalan</value>
+                        <a:documentation>Switch to Catalan hyphenation patterns.</a:documentation>
+                        <value>Chinese</value>
+                        <a:documentation>Switch to Chinese language setting.</a:documentation>
+                        <value>Croatian</value>
+                        <a:documentation>Switch to Croatian hyphenation patterns.</a:documentation>
+                        <value>Czech</value>
+                        <a:documentation>Switch to Czech hyphenation patterns.</a:documentation>
+                        <value>Danish</value>
+                        <a:documentation>Switch to Danish hyphenation patterns.</a:documentation>
+                        <value>Dutch</value>
+                        <a:documentation>Switch to Dutch hyphenation patterns.</a:documentation>
+                        <value>English (Great Britain)</value>
+                        <a:documentation>Switch to British hyphenation patterns.</a:documentation>
+                        <value>English (USA)</value>
+                        <a:documentation>Switch to American English hyphenation patterns.</a:documentation>
+                        <value>Esperanto</value>
+                        <a:documentation>Switch to Esperanto hyphenation patterns.</a:documentation>
+                        <value>Estonian</value>
+                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <value>Finnish</value>
+                        <a:documentation>Switch to Finnish hyphenation patterns.</a:documentation>
+                        <value>French</value>
+                        <a:documentation>Switch to French hyphenation patterns.</a:documentation>
+                        <value>Galician</value>
+                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <value>German</value>
+                        <a:documentation>Switch to German hyphenation patterns.</a:documentation>
+                        <value>Greek</value>
+                        <a:documentation>Switch to Monotonic Greek hyphenation patterns.</a:documentation>
+                        <value>Gujarati</value>
+                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <value>Hungarian</value>
+                        <a:documentation>Switch to Hungarian hyphenation patterns.</a:documentation>
+                        <value>Hindi</value>
+                        <a:documentation>Switch to Hindi hyphenation patterns.</a:documentation>
+                        <value>Icelandic</value>
+                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <value>Irish</value>
+                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <value>Italian</value>
+                        <a:documentation>Switch to Italian hyphenation patterns.</a:documentation>
+                        <value>Kannada</value>
+                        <a:documentation>Switch to Kannada hyphenation patterns.</a:documentation>
+                        <value>Kurmanji</value>
+                        <a:documentation>Switch to Kurmanji hyphenation patterns.</a:documentation>
+                        <value>Latvian</value>
+                        <a:documentation>Switch to Latvian hyphenation patterns.</a:documentation>
+                        <value>Lithuanian</value>
+                        <a:documentation>Switch to Lithuanian hyphenation patterns.</a:documentation>
+                        <value>Malayalam</value>
+                        <a:documentation>Switch to Malayalam hyphenation patterns.</a:documentation>
+                        <value>Norwegian Bokmål</value>
+                        <a:documentation>Switch to Norwegian Bokmål hyphenation patterns.</a:documentation>
+                        <value>Norwegian Nynorsk</value>
+                        <a:documentation>Switch to Norwegian Nynorsk hyphenation patterns.</a:documentation>
+                        <value>Other</value>
+                        <a:documentation>Don&#39;t switch to any of these languages. Useful if a text does not render correctly.</a:documentation>
+                        <value>Polish</value>
+                        <a:documentation>Switch to Polish hyphenation patterns.</a:documentation>
+                        <value>Portuguese</value>
+                        <a:documentation>Switch to Portuguese hyphenation patterns.</a:documentation>
+                        <value>Romanian</value>
+                        <a:documentation>Switch to Romanian hyphenation patterns.</a:documentation>
+                        <value>Russian</value>
+                        <a:documentation>Switch to Russian hyphenation patterns.</a:documentation>
+                        <value>Serbian</value>
+                        <a:documentation>Switch to Serbian hyphenation patterns.</a:documentation>
+                        <value>Serbian (cyrillic)</value>
+                        <a:documentation>Switch to Serbian hyphenation patterns with cyrillic script.</a:documentation>
+                        <value>Slovak</value>
+                        <a:documentation>Switch to Slovak hyphenation patterns.</a:documentation>
+                        <value>Slovenian</value>
+                        <a:documentation>Switch to Slovenian hyphenation patterns.</a:documentation>
+                        <value>Spanish</value>
+                        <a:documentation>Switch to Spanish hyphenation patterns.</a:documentation>
+                        <value>Swedish</value>
+                        <a:documentation>Switch to Swedish hyphenation patterns.</a:documentation>
+                        <value>Turkish</value>
+                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <value>Ukrainian</value>
+                        <a:documentation>Switch to Ukrainian hyphenation patterns.</a:documentation>
+                        <value>Welsh</value>
+                        <a:documentation>Switch to Welsh hyphenation patterns.</a:documentation>
+                     </choice>
+                  </attribute>
+               </optional>
+               <optional>
                   <attribute name="letter-spacing">
                      <a:documentation>Increase spacing between glyphs.</a:documentation>
                   </attribute>
@@ -4769,6 +4976,11 @@
                </optional>
                <optional>
                   <attribute name="fontface">
+                     <a:documentation>Deprecated. Use fontfamily instead.</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="fontfamily">
                      <a:documentation>Name of the font family for the table. If not given, the font face ‘text’ is used.</a:documentation>
                   </attribute>
                </optional>
@@ -5186,6 +5398,11 @@
                </optional>
                <optional>
                   <attribute name="fontface">
+                     <a:documentation>Deprecated. Use fontfamily instead.</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="fontfamily">
                      <a:documentation>The name of the font family. Defaults to text.</a:documentation>
                   </attribute>
                </optional>
@@ -5193,6 +5410,12 @@
                   <attribute name="language">
                      <a:documentation>Set the language for hyphenation and rendering.</a:documentation>
                      <choice>
+                        <data type="string">
+                           <param name="pattern">\{.+\}</param>
+                        </data>
+                        <data type="string">
+                           <param name="pattern">--|bg|ca|cs|cy|da|de|el|en|en_GB|en_US|eo|es|et|eu|fi|fr|ga|gl|grc|gu|hi|hr|hu|hy|id|is|it|kn|ku|lt|lv|ml|nb|nl|nn|pl|pt|ro|ru|sc|sk|sl|sr|sv|tr|uk|zh</param>
+                        </data>
                         <value>Ancient Greek</value>
                         <a:documentation>Switch to Ancient Greek hyphenation patterns.</a:documentation>
                         <value>Armenian</value>
@@ -5271,6 +5494,8 @@
                         <a:documentation>Switch to Russian hyphenation patterns.</a:documentation>
                         <value>Serbian</value>
                         <a:documentation>Switch to Serbian hyphenation patterns.</a:documentation>
+                        <value>Serbian (cyrillic)</value>
+                        <a:documentation>Switch to Serbian hyphenation patterns with cyrillic script.</a:documentation>
                         <value>Slovak</value>
                         <a:documentation>Switch to Slovak hyphenation patterns.</a:documentation>
                         <value>Slovenian</value>
@@ -5334,6 +5559,11 @@
                </optional>
                <optional>
                   <attribute name="fontface">
+                     <a:documentation>The name of the font family. Defaults to text.</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="fontfamily">
                      <a:documentation>The name of the font family. Defaults to text.</a:documentation>
                   </attribute>
                </optional>
