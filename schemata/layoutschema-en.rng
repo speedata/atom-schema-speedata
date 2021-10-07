@@ -27,30 +27,37 @@
                      <a:documentation>Link to a (logical) page number.</a:documentation>
                   </attribute>
                </optional>
-               <zeroOrMore>
-                  <choice>
-                     <ref name="e_A"></ref>
-                     <ref name="e_Action"></ref>
-                     <ref name="e_B"></ref>
-                     <ref name="e_Br"></ref>
-                     <ref name="e_Color"></ref>
-                     <ref name="e_Fontface"></ref>
-                     <ref name="e_ForAll"></ref>
-                     <ref name="e_Frame"></ref>
-                     <ref name="e_HSpace"></ref>
-                     <ref name="e_I"></ref>
-                     <ref name="e_Image"></ref>
-                     <ref name="e_Loop"></ref>
-                     <ref name="e_NoBreak"></ref>
-                     <ref name="e_Sub"></ref>
-                     <ref name="e_Sup"></ref>
-                     <ref name="e_Span"></ref>
-                     <ref name="e_Switch"></ref>
-                     <ref name="e_U"></ref>
-                     <ref name="e_URL"></ref>
-                     <ref name="e_Value"></ref>
-                  </choice>
-               </zeroOrMore>
+               <oneOrMore>
+                  <interleave>
+                     <zeroOrMore>
+                        <choice>
+                           <ref name="e_A"></ref>
+                           <ref name="e_Action"></ref>
+                           <ref name="e_B"></ref>
+                           <ref name="e_Br"></ref>
+                           <ref name="e_Color"></ref>
+                           <ref name="e_Fontface"></ref>
+                           <ref name="e_ForAll"></ref>
+                           <ref name="e_Frame"></ref>
+                           <ref name="e_HSpace"></ref>
+                           <ref name="e_I"></ref>
+                           <ref name="e_Image"></ref>
+                           <ref name="e_Loop"></ref>
+                           <ref name="e_NoBreak"></ref>
+                           <ref name="e_Sub"></ref>
+                           <ref name="e_Sup"></ref>
+                           <ref name="e_Span"></ref>
+                           <ref name="e_Switch"></ref>
+                           <ref name="e_U"></ref>
+                           <ref name="e_URL"></ref>
+                           <ref name="e_Value"></ref>
+                        </choice>
+                     </zeroOrMore>
+                     <optional>
+                        <ref name="e_Box"></ref>
+                     </optional>
+                  </interleave>
+               </oneOrMore>
             </group>
             <ref name="foreign-nodes"></ref>
          </interleave>
@@ -83,6 +90,11 @@
          <a:documentation>The contents of the element AtPageCreation is executed the first time the page is accessed. This is used in Pagetype.</a:documentation>
          <interleave>
             <group>
+               <optional>
+                  <attribute name="graphic">
+                     <a:documentation>The name of a metapost graphic.</a:documentation>
+                  </attribute>
+               </optional>
                <oneOrMore>
                   <optional>
                      <ref name="e_AddSearchpath"></ref>
@@ -101,6 +113,9 @@
                   </optional>
                   <optional>
                      <ref name="e_DefineFontalias"></ref>
+                  </optional>
+                  <optional>
+                     <ref name="e_DefineMatter"></ref>
                   </optional>
                   <optional>
                      <ref name="e_DefineTextformat"></ref>
@@ -167,6 +182,9 @@
                   </optional>
                   <optional>
                      <ref name="e_SavePages"></ref>
+                  </optional>
+                  <optional>
+                     <ref name="e_SetGrid"></ref>
                   </optional>
                   <optional>
                      <ref name="e_SetVariable"></ref>
@@ -194,6 +212,11 @@
          <a:documentation>The enclosed instructions will be executed when the page is placed into the PDF file. Used in Pagetype.</a:documentation>
          <interleave>
             <group>
+               <optional>
+                  <attribute name="graphic">
+                     <a:documentation>The name of a metapost graphic.</a:documentation>
+                  </attribute>
+               </optional>
                <oneOrMore>
                   <optional>
                      <ref name="e_AddSearchpath"></ref>
@@ -212,6 +235,9 @@
                   </optional>
                   <optional>
                      <ref name="e_DefineFontalias"></ref>
+                  </optional>
+                  <optional>
+                     <ref name="e_DefineMatter"></ref>
                   </optional>
                   <optional>
                      <ref name="e_DefineTextformat"></ref>
@@ -278,6 +304,9 @@
                   </optional>
                   <optional>
                      <ref name="e_SavePages"></ref>
+                  </optional>
+                  <optional>
+                     <ref name="e_SetGrid"></ref>
                   </optional>
                   <optional>
                      <ref name="e_SetVariable"></ref>
@@ -380,6 +409,11 @@
    <define name="e_Barcode">
       <element name="Barcode">
          <a:documentation>Print a 1d or 2d barcode. To be used in PlaceObject.</a:documentation>
+         <optional>
+            <attribute name="color">
+               <a:documentation>Color of the barcode. Must be defined with DefineColor before use. Currently only used for QR codes.</a:documentation>
+            </attribute>
+         </optional>
          <optional>
             <attribute name="eclevel">
                <a:documentation>Set the error correction level for QR-codes. If not provided, the system uses the maximum level for minimum size. The higher the level, the more error correction is in the QR-code.</a:documentation>
@@ -534,6 +568,11 @@
                <a:documentation>CSS class for this box.</a:documentation>
             </attribute>
          </optional>
+         <optional>
+            <attribute name="graphic">
+               <a:documentation>The name of the metapost graphic to use instead of the box.</a:documentation>
+            </attribute>
+         </optional>
          <attribute name="height">
             <a:documentation>Height of the box in grid cells.</a:documentation>
          </attribute>
@@ -584,6 +623,9 @@
                </attribute>
                <oneOrMore>
                   <optional>
+                     <ref name="e_A"></ref>
+                  </optional>
+                  <optional>
                      <ref name="e_Action"></ref>
                   </optional>
                   <optional>
@@ -600,6 +642,9 @@
                   </optional>
                   <optional>
                      <ref name="e_Bookmark"></ref>
+                  </optional>
+                  <optional>
+                     <ref name="e_Box"></ref>
                   </optional>
                   <optional>
                      <ref name="e_Br"></ref>
@@ -627,6 +672,9 @@
                   </optional>
                   <optional>
                      <ref name="e_DefineTextformat"></ref>
+                  </optional>
+                  <optional>
+                     <ref name="e_DefineMatter"></ref>
                   </optional>
                   <optional>
                      <ref name="e_Element"></ref>
@@ -762,6 +810,9 @@
                   </optional>
                   <optional>
                      <ref name="e_Tr"></ref>
+                  </optional>
+                  <optional>
+                     <ref name="e_Transformation"></ref>
                   </optional>
                   <optional>
                      <ref name="e_Trace"></ref>
@@ -973,6 +1024,9 @@
                      <ref name="e_DefineFontalias"></ref>
                   </optional>
                   <optional>
+                     <ref name="e_DefineMatter"></ref>
+                  </optional>
+                  <optional>
                      <ref name="e_DefineTextformat"></ref>
                   </optional>
                   <optional>
@@ -1039,6 +1093,9 @@
                      <ref name="e_SavePages"></ref>
                   </optional>
                   <optional>
+                     <ref name="e_SetGrid"></ref>
+                  </optional>
+                  <optional>
                      <ref name="e_SetVariable"></ref>
                   </optional>
                   <optional>
@@ -1103,6 +1160,11 @@
       <element name="DefineColor">
          <a:documentation>Colors defined with DefineColors can be referenced later by their name.</a:documentation>
          <optional>
+            <attribute name="alpha">
+               <a:documentation>Set the opacity of the color. (0-100/255, where 0 is invisible)</a:documentation>
+            </attribute>
+         </optional>
+         <optional>
             <attribute name="colorname">
                <a:documentation>The name of the spot color if model is »spotcolor«. The name must match the required color name, such as »PANTONE 116 C«.</a:documentation>
             </attribute>
@@ -1140,45 +1202,59 @@
          </optional>
          <optional>
             <attribute name="value">
-               <a:documentation>Hex value of the color, such as #FA5 or #FFAA55.</a:documentation>
+               <a:documentation>Hex value of the color, such as #FA5 or #FFAA55 or rgb(255,170,85) or rgba(255,170,85,1).</a:documentation>
             </attribute>
          </optional>
          <optional>
             <attribute name="r">
-               <a:documentation>Red part with RGB</a:documentation>
+               <a:documentation>Red part with rgb (0-100) or RGB (0-255).</a:documentation>
             </attribute>
          </optional>
          <optional>
             <attribute name="g">
-               <a:documentation>Green part with RGB / gray part when using the model gray</a:documentation>
+               <a:documentation>Green part with rgb (0-100) or RGB (0-255) / gray part when using the model gray (0-100).</a:documentation>
             </attribute>
          </optional>
          <optional>
             <attribute name="b">
-               <a:documentation>Blue part with RGB</a:documentation>
+               <a:documentation>Blue part with rgb (0-100) or RGB (0-255).</a:documentation>
             </attribute>
          </optional>
          <optional>
             <attribute name="c">
-               <a:documentation>Cyan part with CMYK</a:documentation>
+               <a:documentation>Cyan part with cmyk (0-100).</a:documentation>
             </attribute>
          </optional>
          <optional>
             <attribute name="m">
-               <a:documentation>Magenta part with CMYK</a:documentation>
+               <a:documentation>Magenta part with cmyk (0-100)</a:documentation>
             </attribute>
          </optional>
          <optional>
             <attribute name="y">
-               <a:documentation>Yellow part with CMYK</a:documentation>
+               <a:documentation>Yellow part with cmyk (0-100).</a:documentation>
             </attribute>
          </optional>
          <optional>
             <attribute name="k">
-               <a:documentation>Black part with CMYK</a:documentation>
+               <a:documentation>Black part with cmyk (0-100).</a:documentation>
             </attribute>
          </optional>
          <empty></empty>
+      </element>
+   </define>
+   <define name="e_DefineGraphic">
+      <element name="DefineGraphic">
+         <a:documentation>Define a metapost graphic to be used in Box. EXPERIMENTAL!</a:documentation>
+         <interleave>
+            <group>
+               <attribute name="name">
+                  <a:documentation>The name of the graphic.</a:documentation>
+               </attribute>
+               <text></text>
+            </group>
+            <ref name="foreign-nodes"></ref>
+         </interleave>
       </element>
    </define>
    <define name="e_DefineFontalias">
@@ -1195,7 +1271,7 @@
    </define>
    <define name="e_DefineFontfamily">
       <element name="DefineFontfamily">
-         <a:documentation>Defines a font family consisting of the shapes »regular», »bold«, »bold italic« and »italic«. To be used in Paragraph, Textblock, Fontface and Table with the attribute fontfamily.</a:documentation>
+         <a:documentation>Defines a font family consisting of the shapes “regular”, “bold”, “bold italic” and “italic”. To be used in Paragraph, Textblock, Fontface and Table with the attribute fontfamily.</a:documentation>
          <interleave>
             <group>
                <attribute name="fontsize">
@@ -1531,6 +1607,9 @@
                <oneOrMore>
                   <interleave>
                      <optional>
+                        <ref name="e_A"></ref>
+                     </optional>
+                     <optional>
                         <ref name="e_Action"></ref>
                      </optional>
                      <optional>
@@ -1547,6 +1626,9 @@
                      </optional>
                      <optional>
                         <ref name="e_Bookmark"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_Box"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Br"></ref>
@@ -1574,6 +1656,9 @@
                      </optional>
                      <optional>
                         <ref name="e_DefineTextformat"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_DefineMatter"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Element"></ref>
@@ -1709,6 +1794,9 @@
                      </optional>
                      <optional>
                         <ref name="e_Tr"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_Transformation"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Trace"></ref>
@@ -1898,6 +1986,113 @@
          <a:documentation>Suggest a hyphenation. This hyphenation will be used in the running text. See the example.</a:documentation>
          <interleave>
             <group>
+               <optional>
+                  <attribute name="language">
+                     <a:documentation>The language for this hyphenation exception. The default is the main document language.</a:documentation>
+                     <choice>
+                        <data type="string">
+                           <param name="pattern">\{.+\}</param>
+                        </data>
+                        <data type="string">
+                           <param name="pattern">--|bg|ca|cs|cy|da|de|el|en|en_GB|en_US|eo|es|et|eu|fi|fr|ga|gl|grc|gu|hi|hr|hu|hy|id|is|it|kn|ku|lt|lv|ml|nb|nl|nn|pl|pt|ro|ru|sc|sk|sl|sr|sv|tr|uk|zh</param>
+                        </data>
+                        <value>Ancient Greek</value>
+                        <a:documentation>Ancient Greek</a:documentation>
+                        <value>Armenian</value>
+                        <a:documentation>Armenian</a:documentation>
+                        <value>Bahasa Indonesia</value>
+                        <a:documentation>Bahasa Indonesia</a:documentation>
+                        <value>Basque</value>
+                        <a:documentation>Basque</a:documentation>
+                        <value>Bulgarian</value>
+                        <a:documentation>Bulgarian (latin alphabet)</a:documentation>
+                        <value>Catalan</value>
+                        <a:documentation>Catalan</a:documentation>
+                        <value>Chinese</value>
+                        <a:documentation>Chinese language setting.</a:documentation>
+                        <value>Croatian</value>
+                        <a:documentation>Croatian</a:documentation>
+                        <value>Czech</value>
+                        <a:documentation>Czech</a:documentation>
+                        <value>Danish</value>
+                        <a:documentation>Danish</a:documentation>
+                        <value>Dutch</value>
+                        <a:documentation>Dutch</a:documentation>
+                        <value>English (Great Britain)</value>
+                        <a:documentation>British</a:documentation>
+                        <value>English (USA)</value>
+                        <a:documentation>American English</a:documentation>
+                        <value>Esperanto</value>
+                        <a:documentation>Esperanto</a:documentation>
+                        <value>Estonian</value>
+                        <a:documentation>Estonian</a:documentation>
+                        <value>Finnish</value>
+                        <a:documentation>Finnish</a:documentation>
+                        <value>French</value>
+                        <a:documentation>French</a:documentation>
+                        <value>Galician</value>
+                        <a:documentation>Galician</a:documentation>
+                        <value>German</value>
+                        <a:documentation>German</a:documentation>
+                        <value>Greek</value>
+                        <a:documentation>Monotonic Greek</a:documentation>
+                        <value>Gujarati</value>
+                        <a:documentation>Gujarati</a:documentation>
+                        <value>Hungarian</value>
+                        <a:documentation>Hungarian</a:documentation>
+                        <value>Hindi</value>
+                        <a:documentation>Hindi</a:documentation>
+                        <value>Icelandic</value>
+                        <a:documentation>Icelandic</a:documentation>
+                        <value>Irish</value>
+                        <a:documentation>Irish</a:documentation>
+                        <value>Italian</value>
+                        <a:documentation>Italian</a:documentation>
+                        <value>Kannada</value>
+                        <a:documentation>Kannada</a:documentation>
+                        <value>Kurmanji</value>
+                        <a:documentation>Kurmanji</a:documentation>
+                        <value>Latvian</value>
+                        <a:documentation>Latvian</a:documentation>
+                        <value>Lithuanian</value>
+                        <a:documentation>Lithuanian</a:documentation>
+                        <value>Malayalam</value>
+                        <a:documentation>Malayalam</a:documentation>
+                        <value>Norwegian Bokmål</value>
+                        <a:documentation>Norwegian Bokmål</a:documentation>
+                        <value>Norwegian Nynorsk</value>
+                        <a:documentation>Norwegian Nynorsk</a:documentation>
+                        <value>Other</value>
+                        <a:documentation>Don&#39;t any of these languages. Useful if a text does not render correctly.</a:documentation>
+                        <value>Polish</value>
+                        <a:documentation>Polish</a:documentation>
+                        <value>Portuguese</value>
+                        <a:documentation>Portuguese</a:documentation>
+                        <value>Romanian</value>
+                        <a:documentation>Romanian</a:documentation>
+                        <value>Russian</value>
+                        <a:documentation>Russian</a:documentation>
+                        <value>Serbian</value>
+                        <a:documentation>Serbian</a:documentation>
+                        <value>Serbian (cyrillic)</value>
+                        <a:documentation>Serbian (cyrillic script).</a:documentation>
+                        <value>Slovak</value>
+                        <a:documentation>Slovak</a:documentation>
+                        <value>Slovenian</value>
+                        <a:documentation>Slovenian</a:documentation>
+                        <value>Spanish</value>
+                        <a:documentation>Spanish</a:documentation>
+                        <value>Swedish</value>
+                        <a:documentation>Swedish</a:documentation>
+                        <value>Turkish</value>
+                        <a:documentation>Turkish</a:documentation>
+                        <value>Ukrainian</value>
+                        <a:documentation>Ukrainian</a:documentation>
+                        <value>Welsh</value>
+                        <a:documentation>Welsh</a:documentation>
+                     </choice>
+                  </attribute>
+               </optional>
                <text></text>
             </group>
             <ref name="foreign-nodes"></ref>
@@ -2164,6 +2359,11 @@
                   </attribute>
                </optional>
                <optional>
+                  <attribute name="opacity">
+                     <a:documentation>Set image opacity (0-100, 100=fully opaque).</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
                   <attribute name="padding">
                      <a:documentation>Set padding for all four sides.</a:documentation>
                   </attribute>
@@ -2186,6 +2386,15 @@
                <optional>
                   <attribute name="padding-right">
                      <a:documentation>Set the inner distance (width between contents and the border) to the right edge.</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="stretch">
+                     <a:documentation>Stretch image until one of maximum width and maximum height is reached. Useful if images should be as large as possible but should not use more than the given space.</a:documentation>
+                     <choice>
+                        <value>yes</value>
+                        <value>no</value>
+                     </choice>
                   </attribute>
                </optional>
                <optional>
@@ -2357,6 +2566,9 @@
                      <ref name="e_DefineFontalias"></ref>
                   </optional>
                   <optional>
+                     <ref name="e_DefineGraphic"></ref>
+                  </optional>
+                  <optional>
                      <ref name="e_DefineFontfamily"></ref>
                   </optional>
                   <optional>
@@ -2472,6 +2684,9 @@
                <oneOrMore>
                   <interleave>
                      <optional>
+                        <ref name="e_A"></ref>
+                     </optional>
+                     <optional>
                         <ref name="e_Action"></ref>
                      </optional>
                      <optional>
@@ -2488,6 +2703,9 @@
                      </optional>
                      <optional>
                         <ref name="e_Bookmark"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_Box"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Br"></ref>
@@ -2515,6 +2733,9 @@
                      </optional>
                      <optional>
                         <ref name="e_DefineTextformat"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_DefineMatter"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Element"></ref>
@@ -2650,6 +2871,9 @@
                      </optional>
                      <optional>
                         <ref name="e_Tr"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_Transformation"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Trace"></ref>
@@ -2798,6 +3022,11 @@
       <element name="NewPage">
          <a:documentation>Finishes the current page and creates a new one (only if new material for the page is available).</a:documentation>
          <optional>
+            <attribute name="force">
+               <a:documentation>Force the shipout of page now.</a:documentation>
+            </attribute>
+         </optional>
+         <optional>
             <attribute name="openon">
                <a:documentation>The next current page will be a left or a right page. E.g. when on page 1 and openon=&#34;right&#34; then page 2 is empty and the next current page is 3.</a:documentation>
                <choice>
@@ -2810,7 +3039,7 @@
          </optional>
          <optional>
             <attribute name="pagetype">
-               <a:documentation>The name of the next page type that should be used.</a:documentation>
+               <a:documentation>The name of the next page type that should be used. If an InsertPage follows the NextPage, the pagetype is used for the first inserted page.</a:documentation>
             </attribute>
          </optional>
          <optional>
@@ -3023,99 +3252,99 @@
                      <param name="pattern">--|bg|ca|cs|cy|da|de|el|en|en_GB|en_US|eo|es|et|eu|fi|fr|ga|gl|grc|gu|hi|hr|hu|hy|id|is|it|kn|ku|lt|lv|ml|nb|nl|nn|pl|pt|ro|ru|sc|sk|sl|sr|sv|tr|uk|zh</param>
                   </data>
                   <value>Ancient Greek</value>
-                  <a:documentation>Switch to Ancient Greek hyphenation patterns.</a:documentation>
+                  <a:documentation>Ancient Greek</a:documentation>
                   <value>Armenian</value>
-                  <a:documentation>Switch to Armenian hyphenation patterns.</a:documentation>
+                  <a:documentation>Armenian</a:documentation>
                   <value>Bahasa Indonesia</value>
-                  <a:documentation>Switch to Bahasa Indonesia hyphenation patterns.</a:documentation>
+                  <a:documentation>Bahasa Indonesia</a:documentation>
                   <value>Basque</value>
-                  <a:documentation>Switch to Basque hyphenation patterns.</a:documentation>
+                  <a:documentation>Basque</a:documentation>
                   <value>Bulgarian</value>
-                  <a:documentation>Switch to Bulgarian (latin alphabet) hyphenation patterns.</a:documentation>
+                  <a:documentation>Bulgarian (latin alphabet)</a:documentation>
                   <value>Catalan</value>
-                  <a:documentation>Switch to Catalan hyphenation patterns.</a:documentation>
+                  <a:documentation>Catalan</a:documentation>
                   <value>Chinese</value>
-                  <a:documentation>Switch to Chinese language setting.</a:documentation>
+                  <a:documentation>Chinese language setting.</a:documentation>
                   <value>Croatian</value>
-                  <a:documentation>Switch to Croatian hyphenation patterns.</a:documentation>
+                  <a:documentation>Croatian</a:documentation>
                   <value>Czech</value>
-                  <a:documentation>Switch to Czech hyphenation patterns.</a:documentation>
+                  <a:documentation>Czech</a:documentation>
                   <value>Danish</value>
-                  <a:documentation>Switch to Danish hyphenation patterns.</a:documentation>
+                  <a:documentation>Danish</a:documentation>
                   <value>Dutch</value>
-                  <a:documentation>Switch to Dutch hyphenation patterns.</a:documentation>
+                  <a:documentation>Dutch</a:documentation>
                   <value>English (Great Britain)</value>
-                  <a:documentation>Switch to British hyphenation patterns.</a:documentation>
+                  <a:documentation>British</a:documentation>
                   <value>English (USA)</value>
-                  <a:documentation>Switch to American English hyphenation patterns.</a:documentation>
+                  <a:documentation>American English</a:documentation>
                   <value>Esperanto</value>
-                  <a:documentation>Switch to Esperanto hyphenation patterns.</a:documentation>
+                  <a:documentation>Esperanto</a:documentation>
                   <value>Estonian</value>
-                  <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                  <a:documentation>Estonian</a:documentation>
                   <value>Finnish</value>
-                  <a:documentation>Switch to Finnish hyphenation patterns.</a:documentation>
+                  <a:documentation>Finnish</a:documentation>
                   <value>French</value>
-                  <a:documentation>Switch to French hyphenation patterns.</a:documentation>
+                  <a:documentation>French</a:documentation>
                   <value>Galician</value>
-                  <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                  <a:documentation>Galician</a:documentation>
                   <value>German</value>
-                  <a:documentation>Switch to German hyphenation patterns.</a:documentation>
+                  <a:documentation>German</a:documentation>
                   <value>Greek</value>
-                  <a:documentation>Switch to Monotonic Greek hyphenation patterns.</a:documentation>
+                  <a:documentation>Monotonic Greek</a:documentation>
                   <value>Gujarati</value>
-                  <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                  <a:documentation>Gujarati</a:documentation>
                   <value>Hungarian</value>
-                  <a:documentation>Switch to Hungarian hyphenation patterns.</a:documentation>
+                  <a:documentation>Hungarian</a:documentation>
                   <value>Hindi</value>
-                  <a:documentation>Switch to Hindi hyphenation patterns.</a:documentation>
+                  <a:documentation>Hindi</a:documentation>
                   <value>Icelandic</value>
-                  <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                  <a:documentation>Icelandic</a:documentation>
                   <value>Irish</value>
-                  <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                  <a:documentation>Irish</a:documentation>
                   <value>Italian</value>
-                  <a:documentation>Switch to Italian hyphenation patterns.</a:documentation>
+                  <a:documentation>Italian</a:documentation>
                   <value>Kannada</value>
-                  <a:documentation>Switch to Kannada hyphenation patterns.</a:documentation>
+                  <a:documentation>Kannada</a:documentation>
                   <value>Kurmanji</value>
-                  <a:documentation>Switch to Kurmanji hyphenation patterns.</a:documentation>
+                  <a:documentation>Kurmanji</a:documentation>
                   <value>Latvian</value>
-                  <a:documentation>Switch to Latvian hyphenation patterns.</a:documentation>
+                  <a:documentation>Latvian</a:documentation>
                   <value>Lithuanian</value>
-                  <a:documentation>Switch to Lithuanian hyphenation patterns.</a:documentation>
+                  <a:documentation>Lithuanian</a:documentation>
                   <value>Malayalam</value>
-                  <a:documentation>Switch to Malayalam hyphenation patterns.</a:documentation>
+                  <a:documentation>Malayalam</a:documentation>
                   <value>Norwegian Bokmål</value>
-                  <a:documentation>Switch to Norwegian Bokmål hyphenation patterns.</a:documentation>
+                  <a:documentation>Norwegian Bokmål</a:documentation>
                   <value>Norwegian Nynorsk</value>
-                  <a:documentation>Switch to Norwegian Nynorsk hyphenation patterns.</a:documentation>
+                  <a:documentation>Norwegian Nynorsk</a:documentation>
                   <value>Other</value>
-                  <a:documentation>Don&#39;t switch to any of these languages. Useful if a text does not render correctly.</a:documentation>
+                  <a:documentation>Don&#39;t any of these languages. Useful if a text does not render correctly.</a:documentation>
                   <value>Polish</value>
-                  <a:documentation>Switch to Polish hyphenation patterns.</a:documentation>
+                  <a:documentation>Polish</a:documentation>
                   <value>Portuguese</value>
-                  <a:documentation>Switch to Portuguese hyphenation patterns.</a:documentation>
+                  <a:documentation>Portuguese</a:documentation>
                   <value>Romanian</value>
-                  <a:documentation>Switch to Romanian hyphenation patterns.</a:documentation>
+                  <a:documentation>Romanian</a:documentation>
                   <value>Russian</value>
-                  <a:documentation>Switch to Russian hyphenation patterns.</a:documentation>
+                  <a:documentation>Russian</a:documentation>
                   <value>Serbian</value>
-                  <a:documentation>Switch to Serbian hyphenation patterns.</a:documentation>
+                  <a:documentation>Serbian</a:documentation>
                   <value>Serbian (cyrillic)</value>
-                  <a:documentation>Switch to Serbian hyphenation patterns with cyrillic script.</a:documentation>
+                  <a:documentation>Serbian (cyrillic script).</a:documentation>
                   <value>Slovak</value>
-                  <a:documentation>Switch to Slovak hyphenation patterns.</a:documentation>
+                  <a:documentation>Slovak</a:documentation>
                   <value>Slovenian</value>
-                  <a:documentation>Switch to Slovenian hyphenation patterns.</a:documentation>
+                  <a:documentation>Slovenian</a:documentation>
                   <value>Spanish</value>
-                  <a:documentation>Switch to Spanish hyphenation patterns.</a:documentation>
+                  <a:documentation>Spanish</a:documentation>
                   <value>Swedish</value>
-                  <a:documentation>Switch to Swedish hyphenation patterns.</a:documentation>
+                  <a:documentation>Swedish</a:documentation>
                   <value>Turkish</value>
-                  <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                  <a:documentation>Turkish</a:documentation>
                   <value>Ukrainian</value>
-                  <a:documentation>Switch to Ukrainian hyphenation patterns.</a:documentation>
+                  <a:documentation>Ukrainian</a:documentation>
                   <value>Welsh</value>
-                  <a:documentation>Switch to Welsh hyphenation patterns.</a:documentation>
+                  <a:documentation>Welsh</a:documentation>
                </choice>
             </attribute>
          </optional>
@@ -3163,6 +3392,9 @@
             <group>
                <oneOrMore>
                   <optional>
+                     <ref name="e_A"></ref>
+                  </optional>
+                  <optional>
                      <ref name="e_Action"></ref>
                   </optional>
                   <optional>
@@ -3179,6 +3411,9 @@
                   </optional>
                   <optional>
                      <ref name="e_Bookmark"></ref>
+                  </optional>
+                  <optional>
+                     <ref name="e_Box"></ref>
                   </optional>
                   <optional>
                      <ref name="e_Br"></ref>
@@ -3206,6 +3441,9 @@
                   </optional>
                   <optional>
                      <ref name="e_DefineTextformat"></ref>
+                  </optional>
+                  <optional>
+                     <ref name="e_DefineMatter"></ref>
                   </optional>
                   <optional>
                      <ref name="e_Element"></ref>
@@ -3341,6 +3579,9 @@
                   </optional>
                   <optional>
                      <ref name="e_Tr"></ref>
+                  </optional>
+                  <optional>
+                     <ref name="e_Transformation"></ref>
                   </optional>
                   <optional>
                      <ref name="e_Trace"></ref>
@@ -3593,99 +3834,99 @@
                            <param name="pattern">--|bg|ca|cs|cy|da|de|el|en|en_GB|en_US|eo|es|et|eu|fi|fr|ga|gl|grc|gu|hi|hr|hu|hy|id|is|it|kn|ku|lt|lv|ml|nb|nl|nn|pl|pt|ro|ru|sc|sk|sl|sr|sv|tr|uk|zh</param>
                         </data>
                         <value>Ancient Greek</value>
-                        <a:documentation>Switch to Ancient Greek hyphenation patterns.</a:documentation>
+                        <a:documentation>Ancient Greek</a:documentation>
                         <value>Armenian</value>
-                        <a:documentation>Switch to Armenian hyphenation patterns.</a:documentation>
+                        <a:documentation>Armenian</a:documentation>
                         <value>Bahasa Indonesia</value>
-                        <a:documentation>Switch to Bahasa Indonesia hyphenation patterns.</a:documentation>
+                        <a:documentation>Bahasa Indonesia</a:documentation>
                         <value>Basque</value>
-                        <a:documentation>Switch to Basque hyphenation patterns.</a:documentation>
+                        <a:documentation>Basque</a:documentation>
                         <value>Bulgarian</value>
-                        <a:documentation>Switch to Bulgarian (latin alphabet) hyphenation patterns.</a:documentation>
+                        <a:documentation>Bulgarian (latin alphabet)</a:documentation>
                         <value>Catalan</value>
-                        <a:documentation>Switch to Catalan hyphenation patterns.</a:documentation>
+                        <a:documentation>Catalan</a:documentation>
                         <value>Chinese</value>
-                        <a:documentation>Switch to Chinese language setting.</a:documentation>
+                        <a:documentation>Chinese language setting.</a:documentation>
                         <value>Croatian</value>
-                        <a:documentation>Switch to Croatian hyphenation patterns.</a:documentation>
+                        <a:documentation>Croatian</a:documentation>
                         <value>Czech</value>
-                        <a:documentation>Switch to Czech hyphenation patterns.</a:documentation>
+                        <a:documentation>Czech</a:documentation>
                         <value>Danish</value>
-                        <a:documentation>Switch to Danish hyphenation patterns.</a:documentation>
+                        <a:documentation>Danish</a:documentation>
                         <value>Dutch</value>
-                        <a:documentation>Switch to Dutch hyphenation patterns.</a:documentation>
+                        <a:documentation>Dutch</a:documentation>
                         <value>English (Great Britain)</value>
-                        <a:documentation>Switch to British hyphenation patterns.</a:documentation>
+                        <a:documentation>British</a:documentation>
                         <value>English (USA)</value>
-                        <a:documentation>Switch to American English hyphenation patterns.</a:documentation>
+                        <a:documentation>American English</a:documentation>
                         <value>Esperanto</value>
-                        <a:documentation>Switch to Esperanto hyphenation patterns.</a:documentation>
+                        <a:documentation>Esperanto</a:documentation>
                         <value>Estonian</value>
-                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <a:documentation>Estonian</a:documentation>
                         <value>Finnish</value>
-                        <a:documentation>Switch to Finnish hyphenation patterns.</a:documentation>
+                        <a:documentation>Finnish</a:documentation>
                         <value>French</value>
-                        <a:documentation>Switch to French hyphenation patterns.</a:documentation>
+                        <a:documentation>French</a:documentation>
                         <value>Galician</value>
-                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <a:documentation>Galician</a:documentation>
                         <value>German</value>
-                        <a:documentation>Switch to German hyphenation patterns.</a:documentation>
+                        <a:documentation>German</a:documentation>
                         <value>Greek</value>
-                        <a:documentation>Switch to Monotonic Greek hyphenation patterns.</a:documentation>
+                        <a:documentation>Monotonic Greek</a:documentation>
                         <value>Gujarati</value>
-                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <a:documentation>Gujarati</a:documentation>
                         <value>Hungarian</value>
-                        <a:documentation>Switch to Hungarian hyphenation patterns.</a:documentation>
+                        <a:documentation>Hungarian</a:documentation>
                         <value>Hindi</value>
-                        <a:documentation>Switch to Hindi hyphenation patterns.</a:documentation>
+                        <a:documentation>Hindi</a:documentation>
                         <value>Icelandic</value>
-                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <a:documentation>Icelandic</a:documentation>
                         <value>Irish</value>
-                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <a:documentation>Irish</a:documentation>
                         <value>Italian</value>
-                        <a:documentation>Switch to Italian hyphenation patterns.</a:documentation>
+                        <a:documentation>Italian</a:documentation>
                         <value>Kannada</value>
-                        <a:documentation>Switch to Kannada hyphenation patterns.</a:documentation>
+                        <a:documentation>Kannada</a:documentation>
                         <value>Kurmanji</value>
-                        <a:documentation>Switch to Kurmanji hyphenation patterns.</a:documentation>
+                        <a:documentation>Kurmanji</a:documentation>
                         <value>Latvian</value>
-                        <a:documentation>Switch to Latvian hyphenation patterns.</a:documentation>
+                        <a:documentation>Latvian</a:documentation>
                         <value>Lithuanian</value>
-                        <a:documentation>Switch to Lithuanian hyphenation patterns.</a:documentation>
+                        <a:documentation>Lithuanian</a:documentation>
                         <value>Malayalam</value>
-                        <a:documentation>Switch to Malayalam hyphenation patterns.</a:documentation>
+                        <a:documentation>Malayalam</a:documentation>
                         <value>Norwegian Bokmål</value>
-                        <a:documentation>Switch to Norwegian Bokmål hyphenation patterns.</a:documentation>
+                        <a:documentation>Norwegian Bokmål</a:documentation>
                         <value>Norwegian Nynorsk</value>
-                        <a:documentation>Switch to Norwegian Nynorsk hyphenation patterns.</a:documentation>
+                        <a:documentation>Norwegian Nynorsk</a:documentation>
                         <value>Other</value>
-                        <a:documentation>Don&#39;t switch to any of these languages. Useful if a text does not render correctly.</a:documentation>
+                        <a:documentation>Don&#39;t any of these languages. Useful if a text does not render correctly.</a:documentation>
                         <value>Polish</value>
-                        <a:documentation>Switch to Polish hyphenation patterns.</a:documentation>
+                        <a:documentation>Polish</a:documentation>
                         <value>Portuguese</value>
-                        <a:documentation>Switch to Portuguese hyphenation patterns.</a:documentation>
+                        <a:documentation>Portuguese</a:documentation>
                         <value>Romanian</value>
-                        <a:documentation>Switch to Romanian hyphenation patterns.</a:documentation>
+                        <a:documentation>Romanian</a:documentation>
                         <value>Russian</value>
-                        <a:documentation>Switch to Russian hyphenation patterns.</a:documentation>
+                        <a:documentation>Russian</a:documentation>
                         <value>Serbian</value>
-                        <a:documentation>Switch to Serbian hyphenation patterns.</a:documentation>
+                        <a:documentation>Serbian</a:documentation>
                         <value>Serbian (cyrillic)</value>
-                        <a:documentation>Switch to Serbian hyphenation patterns with cyrillic script.</a:documentation>
+                        <a:documentation>Serbian (cyrillic script).</a:documentation>
                         <value>Slovak</value>
-                        <a:documentation>Switch to Slovak hyphenation patterns.</a:documentation>
+                        <a:documentation>Slovak</a:documentation>
                         <value>Slovenian</value>
-                        <a:documentation>Switch to Slovenian hyphenation patterns.</a:documentation>
+                        <a:documentation>Slovenian</a:documentation>
                         <value>Spanish</value>
-                        <a:documentation>Switch to Spanish hyphenation patterns.</a:documentation>
+                        <a:documentation>Spanish</a:documentation>
                         <value>Swedish</value>
-                        <a:documentation>Switch to Swedish hyphenation patterns.</a:documentation>
+                        <a:documentation>Swedish</a:documentation>
                         <value>Turkish</value>
-                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <a:documentation>Turkish</a:documentation>
                         <value>Ukrainian</value>
-                        <a:documentation>Switch to Ukrainian hyphenation patterns.</a:documentation>
+                        <a:documentation>Ukrainian</a:documentation>
                         <value>Welsh</value>
-                        <a:documentation>Switch to Welsh hyphenation patterns.</a:documentation>
+                        <a:documentation>Welsh</a:documentation>
                      </choice>
                   </attribute>
                </optional>
@@ -3891,6 +4132,15 @@
             </attribute>
          </optional>
          <optional>
+            <attribute name="showhyperlinks">
+               <a:documentation>Show hyperlinks in Adobe Acrobat and perhaps other PDF viewers.</a:documentation>
+               <choice>
+                  <value>yes</value>
+                  <value>no</value>
+               </choice>
+            </attribute>
+         </optional>
+         <optional>
             <attribute name="subject">
                <a:documentation>Set the subject of the document</a:documentation>
             </attribute>
@@ -4015,8 +4265,13 @@
                      <choice>
                         <value>left</value>
                         <a:documentation>The object is placed in given column.</a:documentation>
+                        <value>center</value>
+                        <a:documentation>The column determines the center of the object. Works only with absolute positioning.</a:documentation>
                         <value>right</value>
                         <a:documentation>The given columns determines the right edge of the border.</a:documentation>
+                        <data type="string">
+                           <param name="pattern">\{.+\}</param>
+                        </data>
                      </choice>
                   </attribute>
                </optional>
@@ -4124,6 +4379,9 @@
                </optional>
                <oneOrMore>
                   <interleave>
+                     <optional>
+                        <ref name="e_A"></ref>
+                     </optional>
                      <optional>
                         <ref name="e_Image"></ref>
                      </optional>
@@ -4311,6 +4569,9 @@
                      <ref name="e_DefineFontalias"></ref>
                   </optional>
                   <optional>
+                     <ref name="e_DefineMatter"></ref>
+                  </optional>
+                  <optional>
                      <ref name="e_DefineTextformat"></ref>
                   </optional>
                   <optional>
@@ -4375,6 +4636,9 @@
                   </optional>
                   <optional>
                      <ref name="e_SavePages"></ref>
+                  </optional>
+                  <optional>
+                     <ref name="e_SetGrid"></ref>
                   </optional>
                   <optional>
                      <ref name="e_SetVariable"></ref>
@@ -4522,6 +4786,9 @@
                         <ref name="e_DefineFontalias"></ref>
                      </optional>
                      <optional>
+                        <ref name="e_DefineMatter"></ref>
+                     </optional>
+                     <optional>
                         <ref name="e_DefineTextformat"></ref>
                      </optional>
                      <optional>
@@ -4586,6 +4853,9 @@
                      </optional>
                      <optional>
                         <ref name="e_SavePages"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_SetGrid"></ref>
                      </optional>
                      <optional>
                         <ref name="e_SetVariable"></ref>
@@ -4662,6 +4932,19 @@
                <optional>
                   <attribute name="select">
                      <a:documentation>The value of the contents.</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="type">
+                     <a:documentation>Set the data type of the variable. Currently only supported for MetaPost variables.</a:documentation>
+                     <choice>
+                        <value>sd:any</value>
+                        <a:documentation>The default (any) datatype for variables in the speedata layout language.</a:documentation>
+                        <value>mp:cmykcolor</value>
+                        <a:documentation>A MetaPost CMYK color.</a:documentation>
+                        <value>mp:rgbcolor</value>
+                        <a:documentation>A MetaPost RGB color.</a:documentation>
+                     </choice>
                   </attribute>
                </optional>
                <optional>
@@ -4820,99 +5103,99 @@
                            <param name="pattern">--|bg|ca|cs|cy|da|de|el|en|en_GB|en_US|eo|es|et|eu|fi|fr|ga|gl|grc|gu|hi|hr|hu|hy|id|is|it|kn|ku|lt|lv|ml|nb|nl|nn|pl|pt|ro|ru|sc|sk|sl|sr|sv|tr|uk|zh</param>
                         </data>
                         <value>Ancient Greek</value>
-                        <a:documentation>Switch to Ancient Greek hyphenation patterns.</a:documentation>
+                        <a:documentation>Ancient Greek</a:documentation>
                         <value>Armenian</value>
-                        <a:documentation>Switch to Armenian hyphenation patterns.</a:documentation>
+                        <a:documentation>Armenian</a:documentation>
                         <value>Bahasa Indonesia</value>
-                        <a:documentation>Switch to Bahasa Indonesia hyphenation patterns.</a:documentation>
+                        <a:documentation>Bahasa Indonesia</a:documentation>
                         <value>Basque</value>
-                        <a:documentation>Switch to Basque hyphenation patterns.</a:documentation>
+                        <a:documentation>Basque</a:documentation>
                         <value>Bulgarian</value>
-                        <a:documentation>Switch to Bulgarian (latin alphabet) hyphenation patterns.</a:documentation>
+                        <a:documentation>Bulgarian (latin alphabet)</a:documentation>
                         <value>Catalan</value>
-                        <a:documentation>Switch to Catalan hyphenation patterns.</a:documentation>
+                        <a:documentation>Catalan</a:documentation>
                         <value>Chinese</value>
-                        <a:documentation>Switch to Chinese language setting.</a:documentation>
+                        <a:documentation>Chinese language setting.</a:documentation>
                         <value>Croatian</value>
-                        <a:documentation>Switch to Croatian hyphenation patterns.</a:documentation>
+                        <a:documentation>Croatian</a:documentation>
                         <value>Czech</value>
-                        <a:documentation>Switch to Czech hyphenation patterns.</a:documentation>
+                        <a:documentation>Czech</a:documentation>
                         <value>Danish</value>
-                        <a:documentation>Switch to Danish hyphenation patterns.</a:documentation>
+                        <a:documentation>Danish</a:documentation>
                         <value>Dutch</value>
-                        <a:documentation>Switch to Dutch hyphenation patterns.</a:documentation>
+                        <a:documentation>Dutch</a:documentation>
                         <value>English (Great Britain)</value>
-                        <a:documentation>Switch to British hyphenation patterns.</a:documentation>
+                        <a:documentation>British</a:documentation>
                         <value>English (USA)</value>
-                        <a:documentation>Switch to American English hyphenation patterns.</a:documentation>
+                        <a:documentation>American English</a:documentation>
                         <value>Esperanto</value>
-                        <a:documentation>Switch to Esperanto hyphenation patterns.</a:documentation>
+                        <a:documentation>Esperanto</a:documentation>
                         <value>Estonian</value>
-                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <a:documentation>Estonian</a:documentation>
                         <value>Finnish</value>
-                        <a:documentation>Switch to Finnish hyphenation patterns.</a:documentation>
+                        <a:documentation>Finnish</a:documentation>
                         <value>French</value>
-                        <a:documentation>Switch to French hyphenation patterns.</a:documentation>
+                        <a:documentation>French</a:documentation>
                         <value>Galician</value>
-                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <a:documentation>Galician</a:documentation>
                         <value>German</value>
-                        <a:documentation>Switch to German hyphenation patterns.</a:documentation>
+                        <a:documentation>German</a:documentation>
                         <value>Greek</value>
-                        <a:documentation>Switch to Monotonic Greek hyphenation patterns.</a:documentation>
+                        <a:documentation>Monotonic Greek</a:documentation>
                         <value>Gujarati</value>
-                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <a:documentation>Gujarati</a:documentation>
                         <value>Hungarian</value>
-                        <a:documentation>Switch to Hungarian hyphenation patterns.</a:documentation>
+                        <a:documentation>Hungarian</a:documentation>
                         <value>Hindi</value>
-                        <a:documentation>Switch to Hindi hyphenation patterns.</a:documentation>
+                        <a:documentation>Hindi</a:documentation>
                         <value>Icelandic</value>
-                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <a:documentation>Icelandic</a:documentation>
                         <value>Irish</value>
-                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <a:documentation>Irish</a:documentation>
                         <value>Italian</value>
-                        <a:documentation>Switch to Italian hyphenation patterns.</a:documentation>
+                        <a:documentation>Italian</a:documentation>
                         <value>Kannada</value>
-                        <a:documentation>Switch to Kannada hyphenation patterns.</a:documentation>
+                        <a:documentation>Kannada</a:documentation>
                         <value>Kurmanji</value>
-                        <a:documentation>Switch to Kurmanji hyphenation patterns.</a:documentation>
+                        <a:documentation>Kurmanji</a:documentation>
                         <value>Latvian</value>
-                        <a:documentation>Switch to Latvian hyphenation patterns.</a:documentation>
+                        <a:documentation>Latvian</a:documentation>
                         <value>Lithuanian</value>
-                        <a:documentation>Switch to Lithuanian hyphenation patterns.</a:documentation>
+                        <a:documentation>Lithuanian</a:documentation>
                         <value>Malayalam</value>
-                        <a:documentation>Switch to Malayalam hyphenation patterns.</a:documentation>
+                        <a:documentation>Malayalam</a:documentation>
                         <value>Norwegian Bokmål</value>
-                        <a:documentation>Switch to Norwegian Bokmål hyphenation patterns.</a:documentation>
+                        <a:documentation>Norwegian Bokmål</a:documentation>
                         <value>Norwegian Nynorsk</value>
-                        <a:documentation>Switch to Norwegian Nynorsk hyphenation patterns.</a:documentation>
+                        <a:documentation>Norwegian Nynorsk</a:documentation>
                         <value>Other</value>
-                        <a:documentation>Don&#39;t switch to any of these languages. Useful if a text does not render correctly.</a:documentation>
+                        <a:documentation>Don&#39;t any of these languages. Useful if a text does not render correctly.</a:documentation>
                         <value>Polish</value>
-                        <a:documentation>Switch to Polish hyphenation patterns.</a:documentation>
+                        <a:documentation>Polish</a:documentation>
                         <value>Portuguese</value>
-                        <a:documentation>Switch to Portuguese hyphenation patterns.</a:documentation>
+                        <a:documentation>Portuguese</a:documentation>
                         <value>Romanian</value>
-                        <a:documentation>Switch to Romanian hyphenation patterns.</a:documentation>
+                        <a:documentation>Romanian</a:documentation>
                         <value>Russian</value>
-                        <a:documentation>Switch to Russian hyphenation patterns.</a:documentation>
+                        <a:documentation>Russian</a:documentation>
                         <value>Serbian</value>
-                        <a:documentation>Switch to Serbian hyphenation patterns.</a:documentation>
+                        <a:documentation>Serbian</a:documentation>
                         <value>Serbian (cyrillic)</value>
-                        <a:documentation>Switch to Serbian hyphenation patterns with cyrillic script.</a:documentation>
+                        <a:documentation>Serbian (cyrillic script).</a:documentation>
                         <value>Slovak</value>
-                        <a:documentation>Switch to Slovak hyphenation patterns.</a:documentation>
+                        <a:documentation>Slovak</a:documentation>
                         <value>Slovenian</value>
-                        <a:documentation>Switch to Slovenian hyphenation patterns.</a:documentation>
+                        <a:documentation>Slovenian</a:documentation>
                         <value>Spanish</value>
-                        <a:documentation>Switch to Spanish hyphenation patterns.</a:documentation>
+                        <a:documentation>Spanish</a:documentation>
                         <value>Swedish</value>
-                        <a:documentation>Switch to Swedish hyphenation patterns.</a:documentation>
+                        <a:documentation>Swedish</a:documentation>
                         <value>Turkish</value>
-                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <a:documentation>Turkish</a:documentation>
                         <value>Ukrainian</value>
-                        <a:documentation>Switch to Ukrainian hyphenation patterns.</a:documentation>
+                        <a:documentation>Ukrainian</a:documentation>
                         <value>Welsh</value>
-                        <a:documentation>Switch to Welsh hyphenation patterns.</a:documentation>
+                        <a:documentation>Welsh</a:documentation>
                      </choice>
                   </attribute>
                </optional>
@@ -5080,6 +5363,20 @@
                <optional>
                   <attribute name="width">
                      <a:documentation>The maximum width of the table (in grid cells or absolute values). Defaults to the available space.</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
+                  <attribute name="vexcess">
+                     <a:documentation>Set behaviour when cells stretch in vertical direction due to rowspans.</a:documentation>
+                     <choice>
+                        <value>stretch</value>
+                        <a:documentation>Stretch all table cells evenly (default).</a:documentation>
+                        <value>bottom</value>
+                        <a:documentation>Only stretch the last table cell.</a:documentation>
+                        <data type="string">
+                           <param name="pattern">\{.+\}</param>
+                        </data>
+                     </choice>
                   </attribute>
                </optional>
                <oneOrMore>
@@ -5325,6 +5622,11 @@
                   </attribute>
                </optional>
                <optional>
+                  <attribute name="graphics">
+                     <a:documentation>Draw the predefined MetaPost graphic around the table cell (experimental).</a:documentation>
+                  </attribute>
+               </optional>
+               <optional>
                   <attribute name="padding">
                      <a:documentation>Shorthand for setting padding-top and the other values with this length.</a:documentation>
                   </attribute>
@@ -5484,99 +5786,99 @@
                            <param name="pattern">--|bg|ca|cs|cy|da|de|el|en|en_GB|en_US|eo|es|et|eu|fi|fr|ga|gl|grc|gu|hi|hr|hu|hy|id|is|it|kn|ku|lt|lv|ml|nb|nl|nn|pl|pt|ro|ru|sc|sk|sl|sr|sv|tr|uk|zh</param>
                         </data>
                         <value>Ancient Greek</value>
-                        <a:documentation>Switch to Ancient Greek hyphenation patterns.</a:documentation>
+                        <a:documentation>Ancient Greek</a:documentation>
                         <value>Armenian</value>
-                        <a:documentation>Switch to Armenian hyphenation patterns.</a:documentation>
+                        <a:documentation>Armenian</a:documentation>
                         <value>Bahasa Indonesia</value>
-                        <a:documentation>Switch to Bahasa Indonesia hyphenation patterns.</a:documentation>
+                        <a:documentation>Bahasa Indonesia</a:documentation>
                         <value>Basque</value>
-                        <a:documentation>Switch to Basque hyphenation patterns.</a:documentation>
+                        <a:documentation>Basque</a:documentation>
                         <value>Bulgarian</value>
-                        <a:documentation>Switch to Bulgarian (latin alphabet) hyphenation patterns.</a:documentation>
+                        <a:documentation>Bulgarian (latin alphabet)</a:documentation>
                         <value>Catalan</value>
-                        <a:documentation>Switch to Catalan hyphenation patterns.</a:documentation>
+                        <a:documentation>Catalan</a:documentation>
                         <value>Chinese</value>
-                        <a:documentation>Switch to Chinese language setting.</a:documentation>
+                        <a:documentation>Chinese language setting.</a:documentation>
                         <value>Croatian</value>
-                        <a:documentation>Switch to Croatian hyphenation patterns.</a:documentation>
+                        <a:documentation>Croatian</a:documentation>
                         <value>Czech</value>
-                        <a:documentation>Switch to Czech hyphenation patterns.</a:documentation>
+                        <a:documentation>Czech</a:documentation>
                         <value>Danish</value>
-                        <a:documentation>Switch to Danish hyphenation patterns.</a:documentation>
+                        <a:documentation>Danish</a:documentation>
                         <value>Dutch</value>
-                        <a:documentation>Switch to Dutch hyphenation patterns.</a:documentation>
+                        <a:documentation>Dutch</a:documentation>
                         <value>English (Great Britain)</value>
-                        <a:documentation>Switch to British hyphenation patterns.</a:documentation>
+                        <a:documentation>British</a:documentation>
                         <value>English (USA)</value>
-                        <a:documentation>Switch to American English hyphenation patterns.</a:documentation>
+                        <a:documentation>American English</a:documentation>
                         <value>Esperanto</value>
-                        <a:documentation>Switch to Esperanto hyphenation patterns.</a:documentation>
+                        <a:documentation>Esperanto</a:documentation>
                         <value>Estonian</value>
-                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <a:documentation>Estonian</a:documentation>
                         <value>Finnish</value>
-                        <a:documentation>Switch to Finnish hyphenation patterns.</a:documentation>
+                        <a:documentation>Finnish</a:documentation>
                         <value>French</value>
-                        <a:documentation>Switch to French hyphenation patterns.</a:documentation>
+                        <a:documentation>French</a:documentation>
                         <value>Galician</value>
-                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <a:documentation>Galician</a:documentation>
                         <value>German</value>
-                        <a:documentation>Switch to German hyphenation patterns.</a:documentation>
+                        <a:documentation>German</a:documentation>
                         <value>Greek</value>
-                        <a:documentation>Switch to Monotonic Greek hyphenation patterns.</a:documentation>
+                        <a:documentation>Monotonic Greek</a:documentation>
                         <value>Gujarati</value>
-                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <a:documentation>Gujarati</a:documentation>
                         <value>Hungarian</value>
-                        <a:documentation>Switch to Hungarian hyphenation patterns.</a:documentation>
+                        <a:documentation>Hungarian</a:documentation>
                         <value>Hindi</value>
-                        <a:documentation>Switch to Hindi hyphenation patterns.</a:documentation>
+                        <a:documentation>Hindi</a:documentation>
                         <value>Icelandic</value>
-                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <a:documentation>Icelandic</a:documentation>
                         <value>Irish</value>
-                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <a:documentation>Irish</a:documentation>
                         <value>Italian</value>
-                        <a:documentation>Switch to Italian hyphenation patterns.</a:documentation>
+                        <a:documentation>Italian</a:documentation>
                         <value>Kannada</value>
-                        <a:documentation>Switch to Kannada hyphenation patterns.</a:documentation>
+                        <a:documentation>Kannada</a:documentation>
                         <value>Kurmanji</value>
-                        <a:documentation>Switch to Kurmanji hyphenation patterns.</a:documentation>
+                        <a:documentation>Kurmanji</a:documentation>
                         <value>Latvian</value>
-                        <a:documentation>Switch to Latvian hyphenation patterns.</a:documentation>
+                        <a:documentation>Latvian</a:documentation>
                         <value>Lithuanian</value>
-                        <a:documentation>Switch to Lithuanian hyphenation patterns.</a:documentation>
+                        <a:documentation>Lithuanian</a:documentation>
                         <value>Malayalam</value>
-                        <a:documentation>Switch to Malayalam hyphenation patterns.</a:documentation>
+                        <a:documentation>Malayalam</a:documentation>
                         <value>Norwegian Bokmål</value>
-                        <a:documentation>Switch to Norwegian Bokmål hyphenation patterns.</a:documentation>
+                        <a:documentation>Norwegian Bokmål</a:documentation>
                         <value>Norwegian Nynorsk</value>
-                        <a:documentation>Switch to Norwegian Nynorsk hyphenation patterns.</a:documentation>
+                        <a:documentation>Norwegian Nynorsk</a:documentation>
                         <value>Other</value>
-                        <a:documentation>Don&#39;t switch to any of these languages. Useful if a text does not render correctly.</a:documentation>
+                        <a:documentation>Don&#39;t any of these languages. Useful if a text does not render correctly.</a:documentation>
                         <value>Polish</value>
-                        <a:documentation>Switch to Polish hyphenation patterns.</a:documentation>
+                        <a:documentation>Polish</a:documentation>
                         <value>Portuguese</value>
-                        <a:documentation>Switch to Portuguese hyphenation patterns.</a:documentation>
+                        <a:documentation>Portuguese</a:documentation>
                         <value>Romanian</value>
-                        <a:documentation>Switch to Romanian hyphenation patterns.</a:documentation>
+                        <a:documentation>Romanian</a:documentation>
                         <value>Russian</value>
-                        <a:documentation>Switch to Russian hyphenation patterns.</a:documentation>
+                        <a:documentation>Russian</a:documentation>
                         <value>Serbian</value>
-                        <a:documentation>Switch to Serbian hyphenation patterns.</a:documentation>
+                        <a:documentation>Serbian</a:documentation>
                         <value>Serbian (cyrillic)</value>
-                        <a:documentation>Switch to Serbian hyphenation patterns with cyrillic script.</a:documentation>
+                        <a:documentation>Serbian (cyrillic script).</a:documentation>
                         <value>Slovak</value>
-                        <a:documentation>Switch to Slovak hyphenation patterns.</a:documentation>
+                        <a:documentation>Slovak</a:documentation>
                         <value>Slovenian</value>
-                        <a:documentation>Switch to Slovenian hyphenation patterns.</a:documentation>
+                        <a:documentation>Slovenian</a:documentation>
                         <value>Spanish</value>
-                        <a:documentation>Switch to Spanish hyphenation patterns.</a:documentation>
+                        <a:documentation>Spanish</a:documentation>
                         <value>Swedish</value>
-                        <a:documentation>Switch to Swedish hyphenation patterns.</a:documentation>
+                        <a:documentation>Swedish</a:documentation>
                         <value>Turkish</value>
-                        <a:documentation>Switch to Turkish hyphenation patterns.</a:documentation>
+                        <a:documentation>Turkish</a:documentation>
                         <value>Ukrainian</value>
-                        <a:documentation>Switch to Ukrainian hyphenation patterns.</a:documentation>
+                        <a:documentation>Ukrainian</a:documentation>
                         <value>Welsh</value>
-                        <a:documentation>Switch to Welsh hyphenation patterns.</a:documentation>
+                        <a:documentation>Welsh</a:documentation>
                      </choice>
                   </attribute>
                </optional>
@@ -6011,6 +6313,9 @@
                <oneOrMore>
                   <interleave>
                      <optional>
+                        <ref name="e_A"></ref>
+                     </optional>
+                     <optional>
                         <ref name="e_Action"></ref>
                      </optional>
                      <optional>
@@ -6027,6 +6332,9 @@
                      </optional>
                      <optional>
                         <ref name="e_Bookmark"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_Box"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Br"></ref>
@@ -6054,6 +6362,9 @@
                      </optional>
                      <optional>
                         <ref name="e_DefineTextformat"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_DefineMatter"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Element"></ref>
@@ -6189,6 +6500,9 @@
                      </optional>
                      <optional>
                         <ref name="e_Tr"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_Transformation"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Trace"></ref>
@@ -6288,6 +6602,9 @@
                <oneOrMore>
                   <interleave>
                      <optional>
+                        <ref name="e_A"></ref>
+                     </optional>
+                     <optional>
                         <ref name="e_Action"></ref>
                      </optional>
                      <optional>
@@ -6304,6 +6621,9 @@
                      </optional>
                      <optional>
                         <ref name="e_Bookmark"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_Box"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Br"></ref>
@@ -6331,6 +6651,9 @@
                      </optional>
                      <optional>
                         <ref name="e_DefineTextformat"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_DefineMatter"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Element"></ref>
@@ -6466,6 +6789,9 @@
                      </optional>
                      <optional>
                         <ref name="e_Tr"></ref>
+                     </optional>
+                     <optional>
+                        <ref name="e_Transformation"></ref>
                      </optional>
                      <optional>
                         <ref name="e_Trace"></ref>
